@@ -7,8 +7,16 @@
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>com.example.projets3.HelloServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getStockData</servlet-name>
+        <servlet-class>com.example.projets3.servlets.getStockData</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getStockData</servlet-name>
+        <url-pattern>/stock</url-pattern>
     </servlet-mapping>
 </web-app>
