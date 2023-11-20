@@ -1,12 +1,18 @@
 package com.example.projets3.servlets;
 
 import java.io.*;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 import com.example.projets3.bean.UserBean;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import org.json.simple.JSONObject;
@@ -40,7 +46,6 @@ public class getStockData extends HttpServlet {
             JSONArray bestMatches = (JSONArray) obj.get("bestMatches");
             JSONObject first_matche = (JSONObject) bestMatches.get(0);
             symbol = (String) first_matche.get("1. symbol");
-            System.out.println(symbol);
         }catch(ParseException pe) {
 
             System.out.println("position: " + pe.getPosition());
@@ -53,12 +58,31 @@ public class getStockData extends HttpServlet {
                 .header("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
         try {
             try {
                 HttpResponse<String> res = HttpClient.newHttpClient().send(req, HttpResponse.BodyHandlers.ofString());
-                System.out.println(res.body());
+                JSONObject obj = (JSONObject) parser.parse(res.body());
+                JSONObject field1 = (JSONObject) obj.get("Time Series (5min)");
+                Set keys = field1.keySet();
+                Iterator<String> keysIterator = keys.iterator();
+                while(keysIterator.hasNext()) {
+                    JSONObject dataObject = (JSONObject) field1.get(keysIterator.next());
+                    ArrayList<String> DateAndPrice = new ArrayList<>();
+                    DateAndPrice.add(keysIterator.next());
+                    DateAndPrice.add((String) dataObject.get("4. close"));
+                    data.add(DateAndPrice);
+                    //System.out.println(field1.get(keysIterator.next()));
+                }
+                request.setAttribute("data", data);
+                request.getRequestDispatcher("stockPage.jsp").forward(request, response);
+                //System.out.println(keys);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+            } catch (ParseException pe) {
+                throw new RuntimeException(pe);
+            } catch (ServletException s) {
+                throw new RuntimeException(s);
             }
         }catch (RuntimeException e){
             throw new RuntimeException(e);
