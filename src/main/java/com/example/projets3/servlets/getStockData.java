@@ -69,11 +69,12 @@ public class getStockData extends HttpServlet {
                 while(keysIterator.hasNext()) {
                     JSONObject dataObject = (JSONObject) field1.get(keysIterator.next());
                     ArrayList<String> DateAndPrice = new ArrayList<>();
-                    DateAndPrice.add(keysIterator.next());
+                    DateAndPrice.add((String) keysIterator.next());
                     DateAndPrice.add((String) dataObject.get("4. close"));
                     data.add(DateAndPrice);
                     //System.out.println(field1.get(keysIterator.next()));
                 }
+                request.setAttribute("stockName", stock);
                 request.setAttribute("data", data);
                 request.getRequestDispatcher("stockPage.jsp").forward(request, response);
                 //System.out.println(keys);
