@@ -47,5 +47,41 @@
         <servlet-name>createUtilisateurServlet</servlet-name>
         <url-pattern>/createUtilisateur</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>conseillerServlet</servlet-name>
+        <servlet-class>com.example.projets3.ConseillerServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>conseillerServlet</servlet-name>
+        <url-pattern>/conseiller-servlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SupprimerConseillerServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.SupprimerConseillerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SupprimerConseillerServlet</servlet-name>
+        <url-pattern>/supprimer-Conseiller</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>modifierConseillerServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.ModifierConseillerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>modifierConseillerServlet</servlet-name>
+        <url-pattern>/modifier-conseiller</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>createConseillerServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.CreateConseillerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>createConseillerServlet</servlet-name>
+        <url-pattern>/create-conseiller</url-pattern>
+    </servlet-mapping>
 </web-app>
