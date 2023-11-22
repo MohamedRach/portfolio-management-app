@@ -19,4 +19,33 @@
         <servlet-name>getStockData</servlet-name>
         <url-pattern>/stock</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>supprimerUtilisateurServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.SupprimerUtilisateurServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>supprimerUtilisateurServlet</servlet-name>
+        <url-pattern>/supprimer-utilisateur</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>modifierUtilisateurServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.ModifierUtilisateurServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>modifierUtilisateurServlet</servlet-name>
+        <url-pattern>/modifier-utilisateur</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>createUtilisateurServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.CreateUtilisateurServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createUtilisateurServlet</servlet-name>
+        <url-pattern>/createUtilisateur</url-pattern>
+    </servlet-mapping>
+
 </web-app>
