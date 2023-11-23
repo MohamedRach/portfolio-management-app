@@ -8,6 +8,6 @@ public interface UserDao {
     void create( UserBean user ) throws DAOException;
     void update(UserBean user) throws DAOException;
     void delete(int id) throws DAOException;
-    UserBean find( int id ) throws DAOException;
+    UserBean find(int id) throws DAOException;
     ArrayList<UserBean> getAllUsers() throws DAOException;
 }
