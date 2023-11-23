@@ -43,7 +43,7 @@ public class SupprimerUtilisateurServlet extends HttpServlet {
             try {
                 userDao.delete(userIdInt);
                 // Rediriger vers la page principale après la suppression
-                response.sendRedirect(request.getContextPath() + "/hello-servlet");
+                response.sendRedirect(request.getContextPath() + "/users");
             } catch (DAOException e) {
                 // Gérer les erreurs
                 e.printStackTrace();

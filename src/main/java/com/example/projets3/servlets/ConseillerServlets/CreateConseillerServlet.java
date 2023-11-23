@@ -42,6 +42,7 @@ public class CreateConseillerServlet extends HttpServlet {
         newConseiller.setNom(nom);
         newConseiller.setPrenom(prenom);
         newConseiller.setEmail(email);
+        newConseiller.setPassword("DEFAULTPASSWORD");
 
         try {
             // Add the new conseiller to the database

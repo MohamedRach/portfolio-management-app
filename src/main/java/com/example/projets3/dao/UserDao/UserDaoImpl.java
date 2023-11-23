@@ -90,10 +90,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(UserBean user) throws DAOException {
-        final String SQL_INSERT = "INSERT INTO user (nom, prenom, email) VALUES (?, ?, ?)";
+        final String SQL_INSERT = "INSERT INTO user (nom, prenom, email, password) VALUES (?, ?, ?, ?)";
 
         try (Connection connexion = daoFactory.getConnection();
-             PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_INSERT, user.getNom(), user.getPrenom(), user.getEmail())) {
+             PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_INSERT, user.getNom(), user.getPrenom(), user.getEmail(), user.getPassword())) {
 
             int statut = preparedStatement.executeUpdate();
             if (statut == 0) {

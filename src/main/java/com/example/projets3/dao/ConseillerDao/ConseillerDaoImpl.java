@@ -22,6 +22,7 @@ public class ConseillerDaoImpl implements ConseillerDao {
         conseillerBean.setNom(resultSet.getString("nom"));
         conseillerBean.setEmail(resultSet.getString("email"));
         conseillerBean.setPrenom(resultSet.getString("prenom"));
+        conseillerBean.setPassword("DEFAULTPASSWORD");
 
         return conseillerBean;
     }
@@ -105,11 +106,11 @@ public class ConseillerDaoImpl implements ConseillerDao {
 
     @Override
     public void createConseiller(ConseillerBean conseiller) throws DAOException {
-        final String SQL_INSERT = "INSERT INTO conseiller (nom, prenom, email) VALUES (?, ?, ?)";
+        final String SQL_INSERT = "INSERT INTO conseiller (nom, prenom, email, password) VALUES (?, ?, ?, ?)";
 
         try (Connection connexion = daoFactory.getConnection();
              PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_INSERT, conseiller.getNom(),
-                     conseiller.getPrenom(), conseiller.getEmail())) {
+                     conseiller.getPrenom(), conseiller.getEmail(), conseiller.getPassword())) {
 
             int statut = preparedStatement.executeUpdate();
             if (statut == 0) {

@@ -49,6 +49,7 @@ public class CreateUtilisateurServlet extends HttpServlet {
         newUser.setNom(nom);
         newUser.setPrenom(prenom);
         newUser.setEmail(email);
+        newUser.setPassword("DEFAULT_PASSWORD");
 
         try {
             // Add the new user to the database
