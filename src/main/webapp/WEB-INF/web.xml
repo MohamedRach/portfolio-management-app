@@ -5,7 +5,7 @@
          version="5.0">
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.example.projets3.HelloServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.UtilisateurServlets.HelloServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getStockData</servlet-name>
@@ -21,7 +21,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>supprimerUtilisateurServlet</servlet-name>
-        <servlet-class>com.example.projets3.servlets.SupprimerUtilisateurServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.UtilisateurServlets.SupprimerUtilisateurServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -32,7 +32,7 @@
 
     <servlet>
         <servlet-name>modifierUtilisateurServlet</servlet-name>
-        <servlet-class>com.example.projets3.servlets.ModifierUtilisateurServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.UtilisateurServlets.ModifierUtilisateurServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -41,7 +41,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>createUtilisateurServlet</servlet-name>
-        <servlet-class>com.example.projets3.servlets.CreateUtilisateurServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.UtilisateurServlets.CreateUtilisateurServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>createUtilisateurServlet</servlet-name>
@@ -49,7 +49,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>conseillerServlet</servlet-name>
-        <servlet-class>com.example.projets3.ConseillerServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.ConseillerServlets.ConseillerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -58,7 +58,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>SupprimerConseillerServlet</servlet-name>
-        <servlet-class>com.example.projets3.servlets.SupprimerConseillerServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.ConseillerServlets.SupprimerConseillerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -67,7 +67,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>modifierConseillerServlet</servlet-name>
-        <servlet-class>com.example.projets3.servlets.ModifierConseillerServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.ConseillerServlets.ModifierConseillerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -77,7 +77,7 @@
 
     <servlet>
         <servlet-name>createConseillerServlet</servlet-name>
-        <servlet-class>com.example.projets3.servlets.CreateConseillerServlet</servlet-class>
+        <servlet-class>com.example.projets3.servlets.ConseillerServlets.CreateConseillerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

@@ -1,4 +1,4 @@
-package com.example.projets3.servlets;
+package com.example.projets3.servlets.ConseillerServlets;
 
 
 import com.example.projets3.bean.ConseillerBean;

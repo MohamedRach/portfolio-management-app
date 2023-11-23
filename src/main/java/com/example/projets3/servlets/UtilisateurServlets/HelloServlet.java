@@ -1,4 +1,4 @@
-package com.example.projets3;
+package com.example.projets3.servlets.UtilisateurServlets;
 
 import java.io.*;
 import java.util.ArrayList;

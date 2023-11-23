@@ -1,4 +1,4 @@
-package com.example.projets3.servlets;
+package com.example.projets3.servlets.UtilisateurServlets;
 import java.io.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
