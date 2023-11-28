@@ -19,7 +19,13 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+
+        if(session.getAttribute("email") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
         response.setContentType("text/html");
+
         ArrayList<UserBean> users = this.userDao.getAllUsers();
 
         PrintWriter out = response.getWriter();
@@ -55,6 +61,9 @@ public class HelloServlet extends HttpServlet {
         }
 
         out.println("</table>");
+        out.println("<form action='logout' method='post'>");
+        out.println("<input type='submit' value= 'logout'>");
+        out.println("</form>");
         out.println("</body></html>");
     }
 }

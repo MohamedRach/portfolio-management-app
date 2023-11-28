@@ -9,5 +9,6 @@ public interface UserDao {
     void update(UserBean user) throws DAOException;
     void delete(int id) throws DAOException;
     UserBean find(int id) throws DAOException;
+    UserBean findByEmail(String email) throws DAOException;
     ArrayList<UserBean> getAllUsers() throws DAOException;
 }

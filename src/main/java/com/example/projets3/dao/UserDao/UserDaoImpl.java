@@ -137,4 +137,31 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public UserBean findByEmail(String email) throws DAOException {
+        UserBean user = null;
+        final String SQL_FIND_USER_BY_ID = "SELECT * FROM user WHERE email = ?";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_USER_BY_ID)) {
+
+            preparedStatement.setNString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                user = new UserBean();
+                user.setId(resultSet.getInt("id"));
+                user.setNom(resultSet.getString("nom"));
+                user.setPrenom(resultSet.getString("prenom"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                // Ajoutez les autres propriétés de l'utilisateur si nécessaire
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Erreur lors de la recherche de l'utilisateur par ID.", e);
+        }
+
+        return user;
+    }
 }

@@ -11,6 +11,38 @@
         <servlet-name>getStockData</servlet-name>
         <servlet-class>com.example.projets3.servlets.getStockData</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.authentification.loginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>signupServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.authentification.signupServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>signupServlet</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>googleAuthServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.authentification.googleAuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>googleAuthServlet</servlet-name>
+        <url-pattern>/auth/google</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.authentification.logoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/users</url-pattern>
