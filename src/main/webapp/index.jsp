@@ -3,14 +3,17 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
+   <style>
+       *{
+           margin: 0;
+           padding: 0;
+       }
+   </style>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-<a href="conseiller-servlet">ConseillerServlet</a>
+<side-bar menu="user"></side-bar>
 
 
+<script src="js/sideBare.js"></script>
 </body>
 </html>
