@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    display: grid;
+    grid-template-columns: [first] 200px [second] auto;
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.stockName {
+   font-family: "Poppins";
+    font-weight: 600;
+    margin-left: 100px;
+}
+
+.stockData {
+    display: grid;
+    grid-template-columns: [first] 600px [second] auto;
+}
+.chart-container {
+    width: 600px;
+    height:200px;
+    margin-left: 60px;
+}
+.stockDetails{
+    margin-left: 100px;
+    margin-top: 30px;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 20px 15px;
+}
+tr{
+    border-bottom: 2px solid grey;
+}
+td {
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: medium;
+
+}
+
+.discover{
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    margin-top: 70px;
+}
+.title{
+    font-family: "Poppins";
+    font-size: large;
+}
+.desc{
+    font-family: "Poppins";
+    font-size: small;
+
+}
+.stocks{
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+.stockCard {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    border: 1px solid #E5F64A;
+    border-radius: 10px;
+    column-gap: 50px;
+    width: 200px;
+    height: 60px;
+    box-shadow: 3px 3px lightgray;
+}
+.stockTitle {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+    padding-left: 8px;
+    padding-top: 8px;
+}
+.stockPrice {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+    color: green;
+    margin-top: 8px;
+}
