@@ -11,13 +11,13 @@ class SideBar extends HTMLElement {
 
         switch (this.getAttribute("menu")){
             case "user":
-                this.menu= ["Dashboard", "Portfolios", "Consultants", "Settings"];
+                this.menu= ["Portfolios", "Consultants", "Profile"];
                 break;
             case "consultants":
-                this.menu = ["Dashboard", "Portfolios", "Clients", "Settings"];
+                this.menu = ["Portfolios", "Clients", "Settings"];
                 break;
             case "admin":
-                this.menu = ["Dashboard", "Users", "Settings"];
+                this.menu = ["Dashboard", "Users","Consultants" ,"Settings"];
         }
 
     }
@@ -27,15 +27,15 @@ class SideBar extends HTMLElement {
        var content = `
         <div class="sideBar">
             <div class="logoSection">
-              <img
-                src="/#"
-              />
               <h1
                 class="logo"
               >
                 InvesTogether
               </h1>
             </div>
+            <form class="form" method="POST" action="stock">
+                <input class="stockSearch" type="text" placeholder="search a stock" name="name">
+            </form>
             <ul class="menu">
             
             
@@ -45,7 +45,6 @@ class SideBar extends HTMLElement {
             content += ` 
             <li class="menuItem">
               <a  class="link" href="#">
-              <img src="#"  alt="hh"/>
               <span class="title">
                 ${Menu}
               </span>

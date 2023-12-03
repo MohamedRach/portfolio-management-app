@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Stock Data</title>
     <link href="./css/stockPage.css" rel="stylesheet">
     <script defer src="js/sideBare.js"></script>
 </head>
@@ -14,81 +14,51 @@
 <div class="page">
     <side-bar menu="user"></side-bar>
     <div class="main">
-        <h1 class="stockName"><%= request.getAttribute("stockName") + " Prices"%></h1>
-        <div class="stockData">
+        <div class="stockName">
+            <h1><%= request.getAttribute("stockName")%></h1>
+            <div>
+                <p>140$</p>
+                <p>+3%</p>
+            </div>
+        </div>
+        <div class="card">
+            <form>
+                <select>
+                    <option value="today">Today</option>
+                    <option>In the last 5 days</option>
+                    <option>In the last 6 months</option>
+                    <option>Year to date</option>
+                </select>
+                <input type="submit" value="Submit">
+            </form>
             <div class="chart-container">
                 <canvas id="line-chart"></canvas>
             </div>
             <div class="stockDetails">
                 <table>
-                    <tr>
-                        <td>Market Cap</td>
-                        <td>163.45B USD</td>
-                    </tr>
-                    <tr>
-                        <td>DIVIDEND YIELD</td>
-                        <td>1.29%</td>
-                    </tr>
-                    <tr>
-                        <td>Previouse Close</td>
-                        <td>$37.95</td>
-                    </tr>
-                    <tr>
-                        <td>YEAR RANGE</td>
-                        <td>$24.73 - $40.07</td>
-                    </tr>
-                    <tr>
-                        <td>DAY RANGE</td>
-                        <td>$37.98 - $38.90</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Stock Name</th>
+                            <th>Market Cap</th>
+                            <th>DIVIDEND YIELD</th>
+                            <th>Previouse Close</th>
+                            <th>YEAR RANGE</th>
+                            <th>DAY RANGE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><%= request.getAttribute("stockName")%></td>
+                            <td>163.45B USD</td>
+                            <td>1.29%</td>
+                            <td>$37.95</td>
+                            <td>$24.73 - $40.07</td>
+                            <td>$37.98 - $38.90</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-        </div>
-        <div class="discover">
-            <h2 class="title">Discover More</h2>
-            <p class="desc">You may be interested In</p>
-            <div class="stocks">
-                <div class="stockCard">
-                    <div class="stockTitle">
-                        <h3>Apple</h3>
-                        <p>Apple Inc</p>
-                    </div>
-                    <div class="StockPrice">
-                        <h3>570</h3>
-                        <p>+6,54%</p>
-                    </div>
-                </div>
-                <div class="stockCard">
-                    <div class="stockTitle">
-                        <h3>Apple</h3>
-                        <p>Apple Inc</p>
-                    </div>
-                    <div class="StockPrice">
-                        <h3>570</h3>
-                        <p>+6,54%</p>
-                    </div>
-                </div>
-                <div class="stockCard">
-                    <div class="stockTitle">
-                        <h3>Apple</h3>
-                        <p>Apple Inc</p>
-                    </div>
-                    <div class="StockPrice">
-                        <h3>570</h3>
-                        <p>+6,54%</p>
-                    </div>
-                </div>
-                <div class="stockCard">
-                    <div class="stockTitle">
-                        <h3>Apple</h3>
-                        <p>Apple Inc</p>
-                    </div>
-                    <div class="StockPrice">
-                        <h3>570</h3>
-                        <p>+6,54%</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 

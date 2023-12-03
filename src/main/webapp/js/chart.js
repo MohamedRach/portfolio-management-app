@@ -29,26 +29,8 @@ class HelloWorld extends HTMLElement {
                 datasets: [{
                     data: data,
                     label: "Stock Prices",
-                    backgroundColor: [
-                        'rgba(255, 26, 104, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(0, 0, 0, 0.2)'
-                    ],
-                    borderColor: (context) => {
-                        const chart = context.chart;
-                        const {ctx, chartArea, data, scales} = chart;
-                        if(!chartArea){
-                            console.log("hhhh")
-                            return null
-                        }
-                        console.log("kkkkkk")
-                        return this.getGradient(ctx, chartArea, data, scales)
-                    },
-                    borderWidth: 1
+                    borderColor: 'rgba(255, 159, 64, 0.2)',
+                    fill: false,
                 }]
             },
             options: {
@@ -59,11 +41,7 @@ class HelloWorld extends HTMLElement {
                         type: 'time',
                         distribution: 'linear',
                     }],
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }],
+
                     title: {
                         display: false,
                     }
