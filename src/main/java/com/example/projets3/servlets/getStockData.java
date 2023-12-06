@@ -46,6 +46,7 @@ public class getStockData extends HttpServlet {
             JSONArray bestMatches = (JSONArray) obj.get("bestMatches");
             JSONObject first_matche = (JSONObject) bestMatches.get(0);
             symbol = (String) first_matche.get("1. symbol");
+
         }catch(ParseException pe) {
 
             System.out.println("position: " + pe.getPosition());
@@ -64,6 +65,8 @@ public class getStockData extends HttpServlet {
                 HttpResponse<String> res = HttpClient.newHttpClient().send(req, HttpResponse.BodyHandlers.ofString());
                 JSONObject obj = (JSONObject) parser.parse(res.body());
                 JSONObject field1 = (JSONObject) obj.get("Time Series (5min)");
+
+
                 Set keys = field1.keySet();
                 Iterator<String> keysIterator = keys.iterator();
                 while(keysIterator.hasNext()) {
@@ -74,6 +77,8 @@ public class getStockData extends HttpServlet {
                     data.add(DateAndPrice);
                     //System.out.println(field1.get(keysIterator.next()));
                 }
+
+
                 request.setAttribute("stockName", stock);
                 request.setAttribute("data", data);
                 request.getRequestDispatcher("stockPage.jsp").forward(request, response);

@@ -4,91 +4,117 @@
     padding: 0;
 }
 
-.page {
-    display: grid;
-    grid-template-columns: [first] 200px [second] auto;
-}
 .main {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-}
-
-.stockName {
-   font-family: "Poppins";
-    font-weight: 600;
-    margin-left: 100px;
-}
-
-.stockData {
     display: grid;
-    grid-template-columns: [first] 600px [second] auto;
+    grid-template-columns: 1fr;
+    align-items: center;
+    width: 1000px;
+    margin-left: 120px;
+}
+.stockName {
+    display: flex;
+    flex-direction: row;
+    column-gap: 700px;
+    margin-top: 100px;
+    margin-bottom: 20px;
+
+}
+.add {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+form input {
+    width: 150px;
+    margin-top: 15px;
+    background-color: #0B1141;
+    color: white;
+    padding: 4px 8px;
+    min-height: 8px;
+    border-radius: 3px;
+}
+.price {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 8px;
+}
+.card {
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 2px 2px lightgray;
+    margin-bottom: 50px;
+}
+.from {
+    height: 50px;
+    width: 1000px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: lightgray;
+}
+
+.from select {
+    font-size: 16px;
+    line-height: 28px;
+    padding: 4px 8px;
+    margin-top: 8px;
+    margin-left: 40px;
+    width: 200px;
+    min-height: 8px;
+    border: unset;
+    border-radius: 4px;
+    outline-color: rgb(84 105 212 / 0.5);
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+.from input {
+    width: 80px;
+    background-color: #0B1141;
+    color: white;
+    padding: 4px 8px;
+    min-height: 8px;
+    border-radius: 3px;
+    margin-left: 20px;
 }
 .chart-container {
-    width: 600px;
-    height:200px;
-    margin-left: 60px;
+    height: 400px;
 }
+
 .stockDetails{
-    margin-left: 100px;
-    margin-top: 30px;
+    margin-top: 40px;
 }
-table {
-    border-collapse: separate;
-    border-spacing: 20px 15px;
-}
-tr{
-    border-bottom: 2px solid grey;
-}
-td {
-    font-family: "Poppins";
-    font-weight: 400;
-    font-size: medium;
-
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 5px;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.discover{
-    display: flex;
-    flex-direction: column;
-    margin-left: 100px;
-    margin-top: 70px;
+.content-table thead tr {
+    background-color: #0B1141;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
 }
-.title{
-    font-family: "Poppins";
-    font-size: large;
-}
-.desc{
-    font-family: "Poppins";
-    font-size: small;
 
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    text-align: center;
 }
-.stocks{
-    display: flex;
-    flex-direction: row;
-    column-gap: 15px;
+.firstColumn {
+    width: 300px;
+    text-align: left;
 }
-.stockCard {
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-    border: 1px solid #E5F64A;
-    border-radius: 10px;
-    column-gap: 50px;
-    width: 200px;
-    height: 60px;
-    box-shadow: 3px 3px lightgray;
-}
-.stockTitle {
-    display: flex;
-    flex-direction: column;
-    row-gap: 2px;
-    padding-left: 8px;
-    padding-top: 8px;
-}
-.stockPrice {
-    display: flex;
-    flex-direction: column;
-    row-gap: 2px;
-    color: green;
-    margin-top: 8px;
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
 }
