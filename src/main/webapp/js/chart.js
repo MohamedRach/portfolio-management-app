@@ -29,7 +29,7 @@ class HelloWorld extends HTMLElement {
                 datasets: [{
                     data: data,
                     label: "Stock Prices",
-                    borderColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(11, 17, 65, 1)',
                     fill: false,
                 }]
             },

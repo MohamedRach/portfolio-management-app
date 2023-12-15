@@ -14,7 +14,7 @@ class SideBar extends HTMLElement {
                 this.menu= ["Portfolios", "Consultants", "Profile"];
                 break;
             case "consultants":
-                this.menu = ["Portfolios", "Clients", "Settings"];
+                this.menu = ["Portfolios", "Clients","Reports", "Settings"];
                 break;
             case "admin":
                 this.menu = ["Dashboard", "Users","Consultants" ,"Settings"];

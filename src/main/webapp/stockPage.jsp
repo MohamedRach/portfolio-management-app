@@ -12,7 +12,7 @@
 <!-- <h1>request.getAttribute("stockName") + " Prices"%></h1> -->
 <% ArrayList<ArrayList<String>> data = (ArrayList<ArrayList<String>>) request.getAttribute("data");%>
 <div class="page">
-    <side-bar menu="user"></side-bar>
+    <side-bar menu="consultants"></side-bar>
     <div class="main">
         <div class="stockName">
             <div class="add">
