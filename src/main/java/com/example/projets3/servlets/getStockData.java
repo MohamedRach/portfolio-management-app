@@ -1,17 +1,16 @@
 package com.example.projets3.servlets;
 
 import java.io.*;
-import java.rmi.RemoteException;
+
 import java.util.ArrayList;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.example.projets3.bean.UserBean;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;

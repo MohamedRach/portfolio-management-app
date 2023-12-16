@@ -1,5 +1,4 @@
 package com.example.projets3.dao;
-import com.example.projets3.dao.DAOConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -20,9 +19,9 @@ public class daoFactory {
 
     public daoFactory(String url, String username, String password) {
         super();
-        this.url = url;
-        this.username = username;
-        this.password = password;
+        daoFactory.url = url;
+        daoFactory.username = username;
+        daoFactory.password = password;
     }
 
     public static daoFactory getInstance() {
