@@ -1,8 +1,6 @@
 package com.example.projets3.servlets.authentification;
 
 import com.example.projets3.bean.UserBean;
-import com.example.projets3.dao.DAOException;
-import com.example.projets3.servlets.authentification.authentification;
 import com.example.projets3.dao.UserDao.UserDao;
 import com.example.projets3.dao.UserDao.UserDaoImpl;
 import com.example.projets3.dao.daoFactory;
@@ -13,14 +11,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.spec.KeySpec;
+
 
 import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.Base64;
+
 
 public class signupServlet extends HttpServlet {
     private UserDao userDao;

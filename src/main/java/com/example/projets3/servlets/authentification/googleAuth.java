@@ -1,7 +1,6 @@
 package com.example.projets3.servlets.authentification;
 
 import com.example.projets3.dao.DAOConfigurationException;
-import com.example.projets3.dao.daoFactory;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,9 +15,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Properties;
-import java.util.Set;
+
 
 public class googleAuth {
     private static final String FICHIER_PROPERTIES       = "dao.properties";

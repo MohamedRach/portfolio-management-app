@@ -4,7 +4,7 @@ import com.example.projets3.bean.UserBean;
 import com.example.projets3.dao.UserDao.UserDao;
 import com.example.projets3.dao.UserDao.UserDaoImpl;
 import com.example.projets3.dao.daoFactory;
-import jakarta.servlet.RequestDispatcher;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,14 +14,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import javax.management.RuntimeErrorException;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Set;
+
 
 public class googleAuthServlet extends HttpServlet {
     private UserDao userDao;

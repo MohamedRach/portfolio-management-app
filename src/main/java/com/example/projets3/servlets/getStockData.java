@@ -23,7 +23,8 @@ public class getStockData extends HttpServlet {
 
 
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         String stock = request.getParameter("name");
         HttpRequest search_request = HttpRequest.newBuilder()
                 .uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?keywords=" + stock +"&function=SYMBOL_SEARCH&datatype=json"))
@@ -81,6 +82,7 @@ public class getStockData extends HttpServlet {
                 request.setAttribute("stockName", stock);
                 request.setAttribute("data", data);
                 request.getRequestDispatcher("stockPage.jsp").forward(request, response);
+
                 //System.out.println(keys);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -92,6 +94,7 @@ public class getStockData extends HttpServlet {
         }catch (RuntimeException e){
             throw new RuntimeException(e);
         }
+
 
 
 
