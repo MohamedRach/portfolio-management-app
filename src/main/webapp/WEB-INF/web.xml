@@ -9,7 +9,7 @@
     </servlet>
     <servlet>
         <servlet-name>getStockData</servlet-name>
-        <servlet-class>com.example.projets3.servlets.getStockData</servlet-class>
+        <servlet-class>com.example.projets3.servlets.stockData.getStockData</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loginServlet</servlet-name>

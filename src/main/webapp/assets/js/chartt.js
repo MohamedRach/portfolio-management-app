@@ -14,8 +14,17 @@ class HelloWorld extends HTMLElement {
     }
     convertData() {
         const data = [];
-        const jsonString = this.getAttribute("data").replace(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/g, '"$1"');
-        const arrayOfArrays = JSON.parse(jsonString);
+        console.log(this.getAttribute("data"))
+        var jsonString = this.getAttribute("data").replace(/(\d{4}-\d{2}-\d{2})/g, '"$1"');
+        var arrayOfArrays = null
+        try{
+            arrayOfArrays = JSON.parse(jsonString);
+        } catch (error) {
+            jsonString = this.getAttribute("data").replace(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/g, '"$1"');
+            arrayOfArrays = JSON.parse(jsonString)
+        }
+
+        //const arrayOfStringDates = arrayOfArrays.map(([date, value]) => [String(date), value]);
         arrayOfArrays.forEach((array) => {
             data.push({
                 x: array[0],
@@ -81,7 +90,7 @@ class HelloWorld extends HTMLElement {
     // connect component
     connectedCallback() {
         //console.log(this.getAttribute("data"))
-
+        console.log(this.getAttribute("data"))
         const totalRevenueChartEl = document.querySelector('#totalRevenueChart')
         const totalRevenueChart = new ApexCharts(totalRevenueChartEl, this.createChart());
         totalRevenueChart.render();

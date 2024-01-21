@@ -95,6 +95,17 @@
                                 <div class="row row-bordered g-0">
                                     <div class="col-md-8">
                                         <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                                        <div>
+                                            <form action="stock" method="post" style="display: flex; flex-direction: row;">
+                                                <select name="date">
+                                                    <option value="weekly">Last 5 days</option>
+                                                    <option value="monthly">Last Month</option>
+                                                </select>
+                                                <input type="hidden" name="stock" value="<%= request.getAttribute("stockName")%>">
+                                                <button type="submit">Submit</button>
+                                            </form>
+
+                                        </div>
                                         <div id="totalRevenueChart" class="px-2"></div>
                                     </div>
 
@@ -129,9 +140,6 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
@@ -158,6 +166,7 @@
             }
         })
     ))
+    console.log("<%= request.getAttribute("data")%>")
 </script>
 
 <!-- Core JS -->
@@ -178,7 +187,7 @@
 
 <!-- Page JS -->
 <!--<script src="../assets/js/dashboards-analytics.js"></script>-->
-<script src="../assets/js/chart.js"></script>
+<script src="../assets/js/chartt.js"></script>
 <stock-chart data="<%= request.getAttribute("data")%>"></stock-chart>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
