@@ -70,7 +70,14 @@
         <servlet-name>modifierUtilisateurServlet</servlet-name>
         <servlet-class>com.example.projets3.servlets.UtilisateurServlets.ModifierUtilisateurServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>dashboard</servlet-name>
+        <servlet-class>com.example.projets3.servlets.dashboard</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dashboard</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>modifierUtilisateurServlet</servlet-name>
         <url-pattern>/modifier-utilisateur</url-pattern>

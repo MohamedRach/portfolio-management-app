@@ -103,6 +103,31 @@
                                     <div class="card-body">
                                         <h5 class="card-title text-primary">About me</h5>
                                         <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 30px;">
+                            <div class="d-flex align-items-end row">
+                                <div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">Activity</h5>
+                                        <span style="background: green; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%;">What to buy</span>
+                                        <div style="border-bottom: 0.8px solid darkgrey;margin-top: 8px; margin-bottom: 10px;">
+                                            <p> buy 50 shares of microsoft stock</p>
+                                            <button class="btn btn-sm btn-outline-primary" style="margin-bottom: 8px">View details</button>
+                                        </div>
+                                        <div style="border-bottom: 0.8px solid darkgrey;margin-top: 8px; margin-bottom: 10px;">
+                                            <p> buy 50 shares of microsoft stock</p>
+                                            <button class="btn btn-sm btn-outline-primary" style="margin-bottom: 8px">View details</button>
+                                        </div>
+                                        <span style="background: red; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%;">What to sell</span>
+                                        <div style="border-bottom: 0.8px solid darkgrey;margin-top: 8px; margin-bottom: 10px;">
+                                            <p> buy 50 shares of microsoft stock</p>
+                                            <button class="btn btn-sm btn-outline-primary" style="margin-bottom: 8px">View details</button>
+                                        </div>
                                     </div>
                                 </div>
 
