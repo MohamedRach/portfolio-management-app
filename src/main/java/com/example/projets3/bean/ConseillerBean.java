@@ -48,11 +48,9 @@ public class ConseillerBean {
         this.age = age;
     }
     private int    age;
-    public Integer getrating() {
+    public Integer getRating() {
         return rating;
     }
-    public Integer setrating() {
-        return rating;
-    }
+    public void setRating(int rating) { this.rating = rating; }
 
 }

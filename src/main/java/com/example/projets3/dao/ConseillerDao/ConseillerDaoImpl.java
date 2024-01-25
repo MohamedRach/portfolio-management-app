@@ -22,6 +22,7 @@ public class ConseillerDaoImpl implements ConseillerDao {
         conseillerBean.setNom(resultSet.getString("nom"));
         conseillerBean.setEmail(resultSet.getString("email"));
         conseillerBean.setPrenom(resultSet.getString("prenom"));
+        conseillerBean.setRating(resultSet.getInt("rating"));
         conseillerBean.setPassword("DEFAULTPASSWORD");
 
         return conseillerBean;
