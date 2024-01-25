@@ -90,7 +90,7 @@
 
     <servlet-mapping>
         <servlet-name>conseillerServlet</servlet-name>
-        <url-pattern>/conseiller-servlet</url-pattern>
+        <url-pattern>/conseillerList</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>SupprimerConseillerServlet</servlet-name>
@@ -99,7 +99,7 @@
 
     <servlet-mapping>
         <servlet-name>SupprimerConseillerServlet</servlet-name>
-        <url-pattern>/supprimer-Conseiller</url-pattern>
+        <url-pattern>/supprimerConseiller</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>modifierConseillerServlet</servlet-name>
@@ -108,7 +108,7 @@
 
     <servlet-mapping>
         <servlet-name>modifierConseillerServlet</servlet-name>
-        <url-pattern>/modifier-conseiller</url-pattern>
+        <url-pattern>/modifierConseiller</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -118,7 +118,7 @@
 
     <servlet-mapping>
         <servlet-name>createConseillerServlet</servlet-name>
-        <url-pattern>/create-conseiller</url-pattern>
+        <url-pattern>/createConseiller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getConseiller</servlet-name>
