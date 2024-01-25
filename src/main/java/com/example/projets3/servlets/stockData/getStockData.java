@@ -30,9 +30,10 @@ public class getStockData extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String date = request.getParameter("date");
         String stock = request.getParameter("name");
-        String symbole = this.apiCommunication.getStockSymbole(stock);
+        //String symbole = this.apiCommunication.getStockSymbole(stock);
         ArrayList<ArrayList<String>> data = null;
         ArrayList<ArrayList<String>> results = null;
+        /*
         if(date != null){
              data = this.apiCommunication.getStockData(symbole, "TIME_SERIES_DAILY");
             if (Objects.equals(date, "weekly")) {
@@ -48,6 +49,8 @@ public class getStockData extends HttpServlet {
 
         request.setAttribute("stockName", stock);
         request.setAttribute("data", results);
+
+         */
         request.getRequestDispatcher("stockPage.jsp").forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -48,7 +48,7 @@ public class apiCommunication {
 
     public ArrayList<ArrayList<String>> getStockData(String symbole, String date) {
         HttpRequest req = HttpRequest.newBuilder()
-                .uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?interval=5min&function="+date+"&symbol="+ symbole +"&datatype=json&output_size=compact"))
+                .uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?interval=1min&function="+date+"&symbol="+ symbole +"&datatype=json&output_size=compact"))
                 .header("X-RapidAPI-Key", "603c9d84f1msh0c5a4c9663e3137p1b165bjsn73e9bf65892c")
                 .header("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -58,7 +58,7 @@ public class apiCommunication {
         try {
             search_response = HttpClient.newHttpClient().send(req, HttpResponse.BodyHandlers.ofString());
             if(Objects.equals(date, "TIME_SERIES_INTRADAY")){
-                data = this.stockDataParser(search_response, "Time Series (5min)");
+                data = this.stockDataParser(search_response, "Time Series (1min)");
             } else {
                 data = this.stockDataParser(search_response, "Time Series (Daily)");
             }
@@ -91,7 +91,6 @@ public class apiCommunication {
             throw new RuntimeException(pe);
         }
         data = this.sortArray(data);
-        System.out.println(data);
         return data;
 
     }

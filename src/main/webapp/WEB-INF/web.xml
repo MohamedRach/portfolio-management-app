@@ -31,6 +31,10 @@
         <servlet-name>googleAuthServlet</servlet-name>
         <servlet-class>com.example.projets3.servlets.authentification.googleAuthServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getConseiller</servlet-name>
+        <servlet-class>com.example.projets3.servlets.getConseiller</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>googleAuthServlet</servlet-name>
         <url-pattern>/auth/google</url-pattern>
@@ -115,5 +119,9 @@
     <servlet-mapping>
         <servlet-name>createConseillerServlet</servlet-name>
         <url-pattern>/create-conseiller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getConseiller</servlet-name>
+        <url-pattern>/conseiller</url-pattern>
     </servlet-mapping>
 </web-app>

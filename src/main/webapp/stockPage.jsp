@@ -61,32 +61,24 @@
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <div class="row">
                         <div class="col-lg-8 mb-4 order-0" style="width: 100%;">
-                            <div class="card">
-                                <div class="d-flex align-items-end row">
-                                    <div class="col-sm-7">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
-                                            <p class="mb-4">
-                                                You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                                                your profile.
-                                            </p>
 
-                                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                                <div class="d-flex align-items-end row">
+                                    <div class="col-sm-7" style="margin-top: 40px;">
+                                        <div class="card-body">
+                                            <h4 class="card-title text-primary">Tesle Inc</h4>
+                                            <div style="display: flex; flex-direction: row; gap: 30px;">
+                                                <h3 class="mb-4">280 $</h3>
+                                                <div style="width: 70px; height: 30px; background: #E6F4EA; color: #277333; text-align: center; padding-top: 4px; border-radius: 5px;">&#x2191 3 %</div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-5 text-center text-sm-left">
-                                        <div class="card-body pb-0 px-0 px-md-4">
-                                            <img
-                                                    src="../assets/img/illustrations/man-with-laptop-light.png"
-                                                    height="140"
-                                                    alt="View Badge User"
-                                                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                                    data-app-light-img="illustrations/man-with-laptop-light.png"
-                                            />
+                                        <div class="card-body pb-0 px-0 px-md-4" style="margin-top: -120px;">
+                                            <a href="#" class="btn btn-lg btn-outline-primary">Add to portfolio</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
                         <!-- Total Revenue -->
@@ -97,12 +89,12 @@
                                         <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
                                         <div>
                                             <form action="stock" method="post" style="display: flex; flex-direction: row;">
-                                                <select name="date">
+                                                <select name="date" class="form-select" style="width: 150px; margin-left: 30px; margin-right: 30px">
                                                     <option value="weekly">Last 5 days</option>
                                                     <option value="monthly">Last Month</option>
                                                 </select>
                                                 <input type="hidden" name="stock" value="<%= request.getAttribute("stockName")%>">
-                                                <button type="submit">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>
 
                                         </div>
@@ -115,32 +107,40 @@
                         <!--/ Total Revenue -->
 
 
-                    <div class="row">
-                        <!-- Order Statistics -->
-                        <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4" style="width: 100%">
-                            <div class="card h-100">
-                                <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                                    <div class="card-title mb-0">
-                                        <h5 class="m-0 me-2">Order Statistics</h5>
-                                        <small class="text-muted">42.82k Total Sales</small>
-                                    </div>
+                    <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4" style="width: 100%">
+                        <div class="card">
+                            <div class="row row-bordered g-0">
+                                <div class="col-md-8">
+                                    <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                                    <div id="second_chart" class="px-2"></div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Quarter</th>
+                                            <th>Total Revenue</th>
+                                            <th>Total Operating Expenses</th>
+                                            <th>Net Income</th>
+                                            <th>Gross Profit</th>
+                                            <th>Market cap</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                        <tr>
+                                            <td>October 2023</td>
+                                            <td>73.28M</td>
+                                            <td>96.02M</td>
+                                            <td>-24.43M</td>
+                                            <td>56.14M</td>
+                                            <td>8.79B</td>
+                                        </tr>
 
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="card-body">
 
-
-                                </div>
                             </div>
                         </div>
                     </div>
-
-
-
-
-                    </div>
-                </div>
-
-                <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
         </div>
@@ -166,7 +166,6 @@
             }
         })
     ))
-    console.log("<%= request.getAttribute("data")%>")
 </script>
 
 <!-- Core JS -->
@@ -188,7 +187,7 @@
 <!-- Page JS -->
 <!--<script src="../assets/js/dashboards-analytics.js"></script>-->
 <script src="../assets/js/chartt.js"></script>
-<stock-chart data="<%= request.getAttribute("data")%>"></stock-chart>
+<stock-chart data="<%= request.getAttribute("data")%>"></stock-chart>>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
