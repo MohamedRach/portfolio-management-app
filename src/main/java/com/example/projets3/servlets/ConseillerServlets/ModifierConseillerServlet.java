@@ -68,7 +68,7 @@ public class ModifierConseillerServlet extends HttpServlet {
             conseillerDao.updateConseiller(conseillerToUpdate);
 
             // Rediriger vers la page /conseillers après la mise à jour réussie
-            response.sendRedirect(request.getContextPath() + "/conseiller-servlet");
+            response.sendRedirect(request.getContextPath() + "/conseillerList");
         } catch (DAOException e) {
             // Gérer les erreurs liées à la mise à jour du conseiller
             e.printStackTrace(); // À des fins de débogage, vous pouvez imprimer la trace de la pile

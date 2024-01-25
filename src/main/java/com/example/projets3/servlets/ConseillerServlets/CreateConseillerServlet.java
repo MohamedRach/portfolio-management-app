@@ -49,7 +49,7 @@ public class CreateConseillerServlet extends HttpServlet {
             conseillerDao.createConseiller(newConseiller);
 
             // Redirect to the /conseillers page after successful creation
-            response.sendRedirect(request.getContextPath() + "/conseiller-servlet");
+            response.sendRedirect(request.getContextPath() + "/conseillerList");
         } catch (DAOException e) {
             // Handle errors (you might want to display an error message or log the exception)
             e.printStackTrace();

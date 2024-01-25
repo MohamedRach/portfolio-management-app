@@ -33,7 +33,7 @@ public class SupprimerConseillerServlet extends HttpServlet {
             try {
                 conseillerDao.deleteConseiller(conseillerIdInt);
                 // Rediriger vers la page principale après la suppression
-                response.sendRedirect(request.getContextPath() + "/conseiller-servlet");
+                response.sendRedirect(request.getContextPath() + "/conseillerList");
             } catch (DAOException e) {
                 // Gérer les erreurs
                 e.printStackTrace();

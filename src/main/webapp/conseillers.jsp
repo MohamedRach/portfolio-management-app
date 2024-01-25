@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <html
@@ -66,35 +67,57 @@
                             <div class="card">
 
                                 <div class="card-header">
-                                    <span>Création d'un conseiller</span>
+                                    <span>Liste des conseillers :</span>
                                 </div>
                                 <div class="card-body">
-                                    <form action="createConseiller" method="post">
-                                        <div class="form-group">
-                                            <label class="label-control">Nom :</label>
-                                            <input class="form-control" name="nom" placeholder="Entrer le nom">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label-control">Prénom :</label>
-                                            <input class="form-control" name="prenom" placeholder="Entrer le prénom">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label-control">Email :</label>
-                                            <input class="form-control" name="email" placeholder="Entrer l'email">
-                                        </div>
-                                        <!-- Add other conseiller properties as needed -->
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Prenom</th>
+                                                <th>Email</th>
+                                                <th>Rating</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                            <c:forEach var="conseiller" items="${conseillers}">
+                                                <tr>
 
-                                        <button class="btn btn-primary" type="submit">Enregistrer</button>
-                                        <button class="btn btn-primary" type="button" onclick="cancelAction()">Annuler</button>
+                                                    <td>${conseiller.nom}</td>
+                                                    <td>${conseiller.prenom}</td>
+                                                    <td>${conseiller.email}</td>
+                                                    <td>${conseiller.rating}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <form action="/modifierConseiller" method="get">
+                                                                    <input type="hidden" name="conseillerId" value="${conseiller.id}">
+                                                                    <button type="submit" class="dropdown-item"><i class="bx bx-edit-alt me-1"></i> Edit</button>
+                                                                </form>
+                                                                <form action="/supprimer-conseiller" method="post">
+                                                                    <input type="hidden" name="conseillerId" value="${conseiller.id}">
+                                                                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
 
-                                        <script>
-                                            function cancelAction() {
-                                                window.location.href = 'conseillerList';
-                                            }
-                                        </script>
-                                    </form>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                             </div>
+                            <form action="/createConseiller.jsp" method="get">
+                                <button class="btn btn-primary" type="submit">Créer Conseiller</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -108,8 +131,9 @@
 </div>
 
 <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
+<div class="layout-overlay layout-menu-toggle"></div>
+</div>
+
 <script>
     const menus = document.querySelectorAll(".menu-item");
     menus.forEach((menu) => (
