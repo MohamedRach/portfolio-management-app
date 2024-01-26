@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <html
@@ -16,7 +17,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>ModifierUtilisateur</title>
+    <title>liste des utilisateurs</title>
 
     <meta name="description" content="" />
 
@@ -42,8 +43,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-
 </head>
+
 <body>
 
 <div class="layout-wrapper layout-content-navbar">
@@ -66,41 +67,55 @@
                             <div class="card">
 
                                 <div class="card-header">
-                                    <span>Modification d'un Utilisateur : </span>
+                                    <span>Liste des utilisateurs :</span>
                                 </div>
                                 <div class="card-body">
-                                    <form action="/modifier-utilisateur" method="post">
-                                        <div class="form-group">
-                                            <label class="label-control"><strong> ID </strong>:</label>
-                                            <input class="form-control" name="id" type="hidden" value="${user.id}">
-                                            <label class="label-control">${user.id}</label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label-control">Nom :</label>
-                                            <input class="form-control" name="nom" placeholder="Entrer le nom" value="${user.nom}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label-control">Prenom :</label>
-                                            <input class="form-control" name="prenom" placeholder="Entrer le prénom" value="${user.prenom}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label-control">Email :</label>
-                                            <input class="form-control" name="email" placeholder="Entrer l'email" value="${user.email}">
-                                        </div>
-                                        <!-- Ajouter d'autres propriétés du conseiller au besoin -->
-                                        <button class="btn btn-primary" type="submit">Enregistrer</button>
-                                        <button class="btn btn-primary" type="button" onclick="cancelAction()">Annuler</button>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Prenom</th>
+                                                <th>Email</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0">
+                                            <c:forEach var="user" items="${users}">
+                                                <tr>
 
-                                        <script>
-                                            function cancelAction() {
-                                                window.location.href = 'users';
-                                            }
-                                        </script>
+                                                    <td>${user.nom}</td>
+                                                    <td>${user.prenom}</td>
+                                                    <td>${user.email}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <form action="/modifier-utilisateur" method="get">
+                                                                    <input type="hidden" name="userId" value="${user.id}">
+                                                                    <button type="submit" class="dropdown-item"><i class="bx bx-edit-alt me-1"></i> Edit</button>
+                                                                </form>
+                                                                <form action="/supprimer-utilisateur" method="post">
+                                                                    <input type="hidden" name="userId" value="${user.id}">
+                                                                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
 
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                    </form>
                                 </div>
                             </div>
+                            <form action="/createUtilisateur.jsp" method="get">
+                                <button class="btn btn-primary" type="submit">Créer User</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -116,6 +131,7 @@
 <!-- Overlay -->
 <div class="layout-overlay layout-menu-toggle"></div>
 </div>
+
 <script>
     const menus = document.querySelectorAll(".menu-item");
     menus.forEach((menu) => (
@@ -157,4 +173,5 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
+
 

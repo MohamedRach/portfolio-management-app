@@ -40,15 +40,19 @@ public class ModifierUtilisateurServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Récupérer l'ID de l'utilisateur à modifier
         String userId = request.getParameter("userId");
+
         if (userId != null) {
             int userIdInt = Integer.parseInt(userId);
 
             // Récupérer l'utilisateur à partir de la base de données
             UserBean user = userDao.find(userIdInt);
 
+
             if (user != null) {
                 // Afficher le formulaire de modification avec les données de l'utilisateur
                 request.setAttribute("user", user);
+
+
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/modifierUtilisateur.jsp");
                 dispatcher.forward(request, response);
             } else {
