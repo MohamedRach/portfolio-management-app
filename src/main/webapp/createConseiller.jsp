@@ -42,6 +42,21 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script>
+        function previewImage() {
+            var input = document.getElementById('image');
+            var preview = document.getElementById('imagePreview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
 </head>
 
 <body>
@@ -69,7 +84,7 @@
                                     <span>Création d'un conseiller</span>
                                 </div>
                                 <div class="card-body">
-                                    <form action="createConseiller" method="post">
+                                    <form action="createConseiller" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label class="label-control">Nom :</label>
                                             <input class="form-control" name="nom" placeholder="Entrer le nom">
@@ -82,7 +97,17 @@
                                             <label class="label-control">Email :</label>
                                             <input class="form-control" name="email" placeholder="Entrer l'email">
                                         </div>
-                                        <!-- Add other conseiller properties as needed -->
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <label for="image" class="form-label">Image:</label>
+                                                <input class="form-control" type="file" id="image" name="image" accept="image/*" required onchange="previewImage()"/>
+                                            </div>
+
+                                        <br>
+
+                                        <img id="imagePreview" src="#" alt="Aper?u de l'image" style="display: none;">
+                                        <br>
+                                        </div>
 
                                         <button class="btn btn-primary" type="submit">Enregistrer</button>
                                         <button class="btn btn-primary" type="button" onclick="cancelAction()">Annuler</button>

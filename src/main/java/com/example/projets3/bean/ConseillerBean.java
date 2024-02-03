@@ -7,6 +7,7 @@ public class ConseillerBean {
     private String    email;
     private Integer   rating;
     private String password;
+    private String imageLink;
 
     public void setPassword(String password) {
         this.password = password;
@@ -52,5 +53,13 @@ public class ConseillerBean {
         return rating;
     }
     public void setRating(int rating) { this.rating = rating; }
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    // Setter pour imageLink
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
 
 }
