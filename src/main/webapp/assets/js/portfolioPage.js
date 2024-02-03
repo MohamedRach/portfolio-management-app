@@ -14,7 +14,7 @@ class HelloWorld extends HTMLElement {
     }
     convertData() {
         const datesString = this.getAttribute("datesData");
-        const numbersString = this.getAttribute("priceData");
+        const numbersString = this.getAttribute("data");
         const datesArray = datesString.match(/\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/g).map(entry => {
             const [date] = entry.slice(1).split(',').map(item => item.trim());
             return date;
@@ -152,12 +152,12 @@ class HelloWorld extends HTMLElement {
     // connect component
     connectedCallback() {
         console.log(this.convertData())
-        /*
+
         const totalRevenueChartEl = document.querySelector('#totalRevenueChart')
         const totalRevenueChart = new ApexCharts(totalRevenueChartEl, this.createChart());
         totalRevenueChart.render();
 
-         */
+
 
 
 
