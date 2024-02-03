@@ -68,7 +68,78 @@ public class apiCommunication {
         }
         return data;
     }
+    public ArrayList<Float> getQuoteData(String symbole) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbole+"&datatype=json"))
+                .header("X-RapidAPI-Key", "603c9d84f1msh0c5a4c9663e3137p1b165bjsn73e9bf65892c")
+                .header("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = null;
+        ArrayList<Float> data = new ArrayList<>();
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            data = this.quoteDataParser(response);
 
+
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return data;
+    }
+
+    public ArrayList<ArrayList<String>> getFinancials(String symbole){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-financials?symbol="+symbole+"&region=US"))
+                .header("X-RapidAPI-Key", "603c9d84f1msh0c5a4c9663e3137p1b165bjsn73e9bf65892c")
+                .header("X-RapidAPI-Host", "apidojo-yahoo-finance-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = null;
+        ArrayList<ArrayList<String>> data = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            data = this.getFinancialsParser(response);
+
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return data;
+    }
+
+    private ArrayList<ArrayList<String>> getFinancialsParser(HttpResponse<String> response){
+        JSONParser parser = new JSONParser();
+        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        try {
+            JSONObject obj = (JSONObject) parser.parse(response.body());
+
+            JSONObject earnings = (JSONObject) obj.get("earnings");
+            JSONObject financialsChart = (JSONObject) earnings.get("financialsChart");
+            JSONArray Quartertfinancials = (JSONArray) financialsChart.get("quarterly");
+            for (int i = 0 ; i < Quartertfinancials.size(); i++) {
+                JSONObject Quarter = (JSONObject) Quartertfinancials.get(i);
+                ArrayList<String> quarterData = new ArrayList<>();
+                JSONObject revenue = (JSONObject) Quarter.get("revenue");
+                JSONObject earning = (JSONObject) Quarter.get("earnings");
+                quarterData.add((String) Quarter.get("date"));
+                quarterData.add((String) revenue.get("fmt"));
+                quarterData.add((String) earning.get("fmt"));
+                data.add(quarterData);
+            }
+            JSONObject summaryDetail = (JSONObject) obj.get("summaryDetail");
+            JSONObject marketCap = (JSONObject) summaryDetail.get("marketCap");
+            JSONObject volume = (JSONObject) summaryDetail.get("volume");
+            data.add(new ArrayList<String>() {
+                {
+                    add((String) marketCap.get("fmt"));
+                    add((String) volume.get("fmt"));
+                }
+            });
+        }catch(ParseException pe) {
+            throw new RuntimeException(pe);
+        }
+        return data;
+    }
     private ArrayList<ArrayList<String>> stockDataParser(HttpResponse<String> response, String field){
         JSONParser parser = new JSONParser();
         ArrayList<ArrayList<String>> data = new ArrayList<>();
@@ -107,6 +178,24 @@ public class apiCommunication {
                 return date1.compareTo(date2);
             }
         });
+        return data;
+    }
+    private ArrayList<Float> quoteDataParser(HttpResponse<String> response){
+        JSONParser parser = new JSONParser();
+        ArrayList<Float> data = new ArrayList<Float>();
+        try {
+            JSONObject obj = (JSONObject) parser.parse(response.body());
+            JSONObject Global_Quote = (JSONObject) obj.get("Global Quote");
+            Float price = Float.parseFloat((String) Global_Quote.get("05. price"));
+            Float previous_close = Float.parseFloat((String) Global_Quote.get("08. previous close"));
+            data.add(price);
+            data.add((price - previous_close) / previous_close);
+
+
+
+        } catch(ParseException pe) {
+            throw new RuntimeException(pe);
+        }
         return data;
     }
 }

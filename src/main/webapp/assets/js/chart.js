@@ -94,9 +94,9 @@ class HelloWorld extends HTMLElement {
         return modifiedArray
     }
     creatChart2() {
-        const data = this.creatChart2();
-        const date = data.map(subArray => subArray[0]);
-        const revenue = data.map(subArray => subArray[1]);
+        const data = this.convertData2();
+        const date = data.map(subArray => subArray[0]).slice(0,-1);
+        const revenue = data.map(subArray => subArray[1]).slice(0,-1);
         const earnings = data.map(subArray => subArray[2]);
 
         var options = {
@@ -132,13 +132,7 @@ class HelloWorld extends HTMLElement {
             fill: {
                 opacity: 1
             },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return "$ " + val + " thousands"
-                    }
-                }
-            }
+
         };
         return options
     }

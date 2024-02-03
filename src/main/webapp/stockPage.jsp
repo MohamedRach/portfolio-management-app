@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@page buffer="8192kb" autoFlush="true" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -41,6 +43,8 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
 </head>
+<% ArrayList<Float> quoteData = (ArrayList<Float>) request.getAttribute("quoteData");
+ArrayList<ArrayList<String>> financialData = (ArrayList<ArrayList<String>>) request.getAttribute("financialData");%>
 
 <body>
 <!-- Layout wrapper -->
@@ -65,10 +69,25 @@
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-7" style="margin-top: 40px;">
                                         <div class="card-body">
-                                            <h4 class="card-title text-primary">Tesle Inc</h4>
+                                            <h4 class="card-title text-primary"><%= request.getAttribute("stockName")%> Inc</h4>
                                             <div style="display: flex; flex-direction: row; gap: 30px;">
-                                                <h3 class="mb-4">280 $</h3>
-                                                <div style="width: 70px; height: 30px; background: #E6F4EA; color: #277333; text-align: center; padding-top: 4px; border-radius: 5px;">&#x2191 3 %</div>
+                                                <h3 class="mb-4"><%= quoteData.get(0)%> $</h3>
+                                                <div style="width: 90px; height: 30px; background:
+                                                        <% if (quoteData.get(1) >= 0){%>
+                                                        <%= "#E6F4EA"%>
+                                                        <%} else {%>
+                                                        <%= "#FCE8E6"%>
+                                                        <%}%>; color:
+                                                    <% if (quoteData.get(1) >= 0){%>
+                                                    <%= "#277333"%>
+                                                    <%} else {%>
+                                                    <%= "#C5221F"%>
+                                                    <%}%>
+                                                        ; text-align: center; padding-top: 4px; border-radius: 5px;"><% if (quoteData.get(1) >= 0){%>
+                                                    <%= "&#x2191"%>
+                                                    <%} else {%>
+                                                    <%= "&#x2193"%>
+                                                    <%}%> <%= String.format("%.3f", quoteData.get(1))%> %</div>
                                             </div>
                                         </div>
                                     </div>
@@ -173,21 +192,23 @@
                                         <tr>
                                             <th>Quarter</th>
                                             <th>Total Revenue</th>
-                                            <th>Total Operating Expenses</th>
                                             <th>Net Income</th>
-                                            <th>Gross Profit</th>
+                                            <th>Volume</th>
                                             <th>Market cap</th>
                                         </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
-                                        <tr>
-                                            <td>October 2023</td>
-                                            <td>73.28M</td>
-                                            <td>96.02M</td>
-                                            <td>-24.43M</td>
-                                            <td>56.14M</td>
-                                            <td>8.79B</td>
-                                        </tr>
+
+                                        <% for (ArrayList<String> data: financialData.subList(0, financialData.size() -1)){ %>
+                                            <tr>
+                                                <td><%= data.get(0)%></td>
+                                                <td><%= data.get(1)%></td>
+                                                <td><%= data.get(2)%></td>
+                                                <td><%= financialData.get(financialData.size() - 1).get(1)%></td>
+                                                <td><%= financialData.get(financialData.size() - 1).get(0)%></td>
+                                        <%};%>
+
+                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -202,22 +223,23 @@
         <!-- / Layout page -->
     </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+
+
 </div>
 <!-- / Layout wrapper -->
 
 <script>
-    const menus = document.querySelectorAll(".menu-item");
+    const menus = document.querySelectorAll(".menu-toggle");
+    console.log(menus)
     menus.forEach((menu) => (
         menu.addEventListener("click", (e) => {
             e.preventDefault()
-            if (menu.classList.contains('open')) {
+            if (menu.parentElement.classList.contains('open')) {
                 // The 'open' class is present in the element's class list
-                menu.classList.remove("open")
+                menu.parentElement.classList.remove("open")
             } else {
                 // The 'open' class is not present in the element's class list
-                menu.classList.add("open")
+                menu.parentElement.classList.add("open")
             }
         })
     ))
@@ -238,12 +260,14 @@
 
 <!-- Main JS -->
 <script src="../assets/js/main.js"></script>
-
+    <!-- Page JS -->
+    <script src="../assets/js/ui-modals.js"></script>
 <!-- Page JS -->
 <!--<script src="../assets/js/dashboards-analytics.js"></script>-->
-<script src="../assets/js/chartt.js"></script>
-<stock-chart data="<%= request.getAttribute("data")%>"></stock-chart>>
+<script src="../assets/js/chart.js"></script>
+<stock-chart data="<%= request.getAttribute("data")%>" financialData=" <%= request.getAttribute("financialData")%>"></stock-chart>>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </body>
 </html>
