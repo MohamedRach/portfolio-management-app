@@ -77,6 +77,7 @@
                                                 <th>Nom</th>
                                                 <th>Prenom</th>
                                                 <th>Email</th>
+                                                <th>image</th>
                                                 <th>Rating</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -88,7 +89,11 @@
                                                     <td>${conseiller.nom}</td>
                                                     <td>${conseiller.prenom}</td>
                                                     <td>${conseiller.email}</td>
+
+                                                    <td><img src="${conseiller.imageLink}" alt="Image de conseiller" class="rounded-circle" style="width: 50px; height: 50px;"></td>
+
                                                     <td>${conseiller.rating}</td>
+
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

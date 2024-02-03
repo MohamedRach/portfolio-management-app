@@ -23,7 +23,7 @@ public class UtilisateurServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        /*if(session.getAttribute("email") == null) {
+        /* if(session.getAttribute("email") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
         }*/
         ArrayList<UserBean> users = this.userDao.getAllUsers();
