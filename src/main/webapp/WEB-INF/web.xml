@@ -48,7 +48,7 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
+        <servlet-name>UtilisateurServlet</servlet-name>
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
