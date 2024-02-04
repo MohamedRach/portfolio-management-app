@@ -1,3 +1,9 @@
+<%@ page import="com.example.projets3.bean.ConseillerBean" %>
+<%@ page import="java.util.List" %>
+<%@page buffer="8192kb" autoFlush="true" %>
+
+<%@ page import="com.example.projets3.bean.ConseillerBean" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -60,40 +66,68 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div style="display: grid; grid-template-columns: repeat(3, 250px); column-gap: 30px;">
+                    <div style="display: grid; grid-template-columns: repeat(4, 250px); column-gap: 30px; row-gap: 20px;">
+                        <% ArrayList<ConseillerBean> conseillers = (ArrayList<ConseillerBean>) request.getAttribute("conseillers");%>
+                        <%
+
+
+                            for (ConseillerBean conseiller : conseillers) {
+                        %>
                         <div class="col">
                             <div class="card h-100">
-                                <img style="border-radius: 50%; width: 100px; margin-top: 30px; margin-left: 80px" src="../assets/img/elements/2.jpg" alt="Card image cap" />
+                                <img style="border-radius: 50%; width: 100px; margin-top: 30px; margin-left: 80px" src="<%= conseiller.getImageLink() %>" alt="Image du conseiller" />
                                 <div class="card-body">
-                                    <h5 class="card-title" style="text-align: center">Tom Smith</h5>
-                                    <span style="background: orange; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%; margin-left: 20px; margin-right:10px; ">3.5</span>
-                                    <span class="fa fa-star" style="color: orange;"></span>
-                                    <span class="fa fa-star" style="color: orange;"></span>
-                                    <span class="fa fa-star" style="color: orange;"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    <h5 class="card-title" style="text-align: center"><%= conseiller.getPrenom() %> <%= conseiller.getNom() %></h5>
+
+                                    <!-- Display star rating based on conseiller.rating -->
+                                    <div style="text-align: center; margin-bottom: 10px;">
+                                        <%
+                                            double rating = conseiller.getRating();
+                                            int numberOfFullStars = (int) rating;
+                                            int remainingStars = 5 - numberOfFullStars;
+
+                                            // Iterate to display full stars
+                                            for (int i = 0; i < numberOfFullStars; i++) {
+                                        %>
+                                        <span class="fa fa-star" style="color: orange;"></span>
+                                        <%
+                                            }
+
+                                            // If there is a partial star, display it
+                                            if (rating % 1 != 0) {
+                                        %>
+                                        <span class="fa fa-star-half" style="color: orange;"></span>
+                                        <%
+                                                remainingStars--; // Adjust remaining stars if a half star is displayed
+                                            }
+
+                                            // Add empty stars for the remaining space
+                                            for (int i = 0; i < remainingStars; i++) {
+                                        %>
+                                        <span class="fa fa-star"></span>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+
+                                    <!-- Other details about the conseiller -->
+                                    <!-- Display conseiller.description -->
                                     <p class="card-text" style="margin-top: 10px">
-                                        This is a longer card with supporting text below as a natural lead-in to additional content.
-                                        This content is a little bit longer.
+                                        <%= conseiller.getDescription() %>
                                     </p>
-                                    <button type="button" style="width: 100%" class="btn btn-primary">View Profile</button>
-                                    <button type="button" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire me</button>
+
+                                    <!-- Buttons -->
+
+                                        <button type="button" style="width: 100%" class="btn btn-primary">Voir le profil</button>
+                                        <button type="button" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire me</button>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card h-100">
-                                <img class="card-img-top" src="../assets/img/elements/2.jpg" alt="Card image cap" />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        This is a longer card with supporting text below as a natural lead-in to additional content.
-                                        This content is a little bit longer.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                        <%
+                            }
+                        %>
                 </div>
                 <!-- Content wrapper -->
             </div>

@@ -23,7 +23,13 @@ public class ConseillerDaoImpl implements ConseillerDao {
         conseillerBean.setEmail(resultSet.getString("email"));
         conseillerBean.setPrenom(resultSet.getString("prenom"));
         conseillerBean.setImageLink(resultSet.getString("imagelink"));
+        conseillerBean.setDescription(resultSet.getString("description"));
         conseillerBean.setRating(resultSet.getInt("rating"));
+        conseillerBean.setHired(resultSet.getInt("hired"));
+        conseillerBean.setHourly_Rate(resultSet.getInt("Hourly_Rate"));
+        conseillerBean.setPostive_Reviews(resultSet.getInt("Postive_Reviews"));
+        conseillerBean.setRehired(resultSet.getInt("Rehired"));
+
         conseillerBean.setPassword("DEFAULTPASSWORD");
 
         return conseillerBean;
@@ -59,7 +65,7 @@ public class ConseillerDaoImpl implements ConseillerDao {
 
             while (resultSet.next()) {
                 conseillerBean = map(resultSet);
-                System.out.println(resultSet.getString("nom"));
+
                 conseillers.add(conseillerBean);
             }
         } catch (SQLException e) {
