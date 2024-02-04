@@ -67,7 +67,7 @@
                                 <div class="col-md-8">
                                     <h5 class="card-header m-0 me-2 pb-3">Add Portfolio</h5>
                                     <div>
-                                        <form action="portfolioServlet" method="post" style="margin-left: 20px; display: flex; flex-direction: column; justify-content: center">
+                                        <form action="portfolioServlet" method="post" onsubmit="onSubmit()" style="margin-left: 20px; display: flex; flex-direction: column; justify-content: center">
                                             <label for="nameWithTitle" class="form-label">Name</label>
                                             <input
                                                     type="text"
@@ -110,21 +110,30 @@
     <!-- / Layout wrapper -->
 
     <script>
-        const menus = document.querySelectorAll(".menu-item");
+        const menus = document.querySelectorAll(".menu-toggle");
+        console.log(menus)
         menus.forEach((menu) => (
             menu.addEventListener("click", (e) => {
                 e.preventDefault()
-                if (menu.classList.contains('open')) {
+                if (menu.parentElement.classList.contains('open')) {
                     // The 'open' class is present in the element's class list
-                    menu.classList.remove("open")
+                    menu.parentElement.classList.remove("open")
                 } else {
                     // The 'open' class is not present in the element's class list
-                    menu.classList.add("open")
+                    menu.parentElement.classList.add("open")
                 }
             })
         ))
     </script>
-
+    <script src="../assets/js/stateManagement.js"></script>
+    <script>
+        function onSubmit(){
+            const portfolioName = document.getElementById("nameWithTitle").value;
+            const porfolioId = globalState.getState().pop()[0];
+            globalState.updateState([porfolioId, portfolioName])
+            return true;
+        }
+    </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

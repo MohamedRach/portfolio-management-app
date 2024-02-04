@@ -47,6 +47,7 @@
 <% ArrayList<ArrayList<Object>> tableData = (ArrayList<ArrayList<Object>>) request.getAttribute("tableData");
     ArrayList<String> stockName = (ArrayList<String>) request.getAttribute("graphData1");
     ArrayList<Float> percentage = (ArrayList<Float>) request.getAttribute("graphData2");
+    ArrayList<ArrayList<Object>> portfolios = (ArrayList<ArrayList<Object>>) request.getAttribute("portfolios");
     %>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -122,16 +123,17 @@
     <!-- Vendors JS -->
     <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script>
-        const menus = document.querySelectorAll(".menu-item");
+        const menus = document.querySelectorAll(".menu-toggle");
+        console.log(menus)
         menus.forEach((menu) => (
             menu.addEventListener("click", (e) => {
                 e.preventDefault()
-                if (menu.classList.contains('open')) {
+                if (menu.parentElement.classList.contains('open')) {
                     // The 'open' class is present in the element's class list
-                    menu.classList.remove("open")
+                    menu.parentElement.classList.remove("open")
                 } else {
                     // The 'open' class is not present in the element's class list
-                    menu.classList.add("open")
+                    menu.parentElement.classList.add("open")
                 }
             })
         ))
@@ -160,7 +162,24 @@
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     </script>
+    <script src="../assets/js/stateManagement.js"></script>
+    <script>
+        let originalString = "<%= portfolios%>";
 
+        // Fix the input string to make it a valid JSON format
+        let fixedString = originalString.replace(/\b([a-zA-Z_]\w*\s*)\b/g, '"$1"');
+
+        // Parse the modified string into a JavaScript array
+        let originalArray = JSON.parse(fixedString);
+
+        // Convert the array to have the first element as an int and the second as a string
+        let convertedArray = originalArray.map(subArray => [parseInt(subArray[0], 10), String(subArray[1])]);
+        globalState.setState(convertedArray)
+
+
+
+    </script>
+    <script src="../assets/js/createSubArray.js"></script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>

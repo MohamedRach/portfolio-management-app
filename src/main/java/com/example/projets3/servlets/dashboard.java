@@ -40,8 +40,10 @@ public class dashboard extends HttpServlet {
         ArrayList<stockBean> stockNames = new ArrayList<>();
         ArrayList<ArrayList<Object>> quoteData = new ArrayList<>();
         ArrayList<ArrayList<Object>> graphData = new ArrayList<ArrayList<Object>>();
+        ArrayList<ArrayList<Object>> portfolioData = new ArrayList<ArrayList<Object>>();
         for(portfolioBean portfolio: portfolios) {
             ArrayList<stockBean> stocks = this.stockDao.getStocks(portfolio.getId());
+            ArrayList<Object> ports = new ArrayList<>();
             for (stockBean stock: stocks) {
                 ArrayList<Float> quote = this.apiCommunication.getQuoteData(stock.getName());
                 ArrayList<Object> gainData = new ArrayList<>();
@@ -52,6 +54,10 @@ public class dashboard extends HttpServlet {
                 stockNames.add(stock);
                 total_stocks += stock.getQuantity();
             }
+            ports.add(portfolio.getId());
+            ports.add(portfolio.getName());
+            portfolioData.add(ports);
+
         }
         ArrayList<String> stockName =  new ArrayList<>();
         ArrayList<Float> percentage = new ArrayList<>();
@@ -59,6 +65,8 @@ public class dashboard extends HttpServlet {
             stockName.add(stocks.getName());
             percentage.add(((float)stocks.getQuantity()/total_stocks)*100);
         }
+        System.out.println(portfolioData);
+        request.setAttribute("portfolios", portfolioData);
         request.setAttribute("graphData1", stockName);
         request.setAttribute("graphData2", percentage);
         request.setAttribute("total_value", total_value);
