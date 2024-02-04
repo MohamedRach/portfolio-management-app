@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -43,6 +44,10 @@
 </head>
 
 <body>
+<% ArrayList<ArrayList<Object>> tableData = (ArrayList<ArrayList<Object>>) request.getAttribute("tableData");
+    ArrayList<String> stockName = (ArrayList<String>) request.getAttribute("graphData1");
+    ArrayList<Float> percentage = (ArrayList<Float>) request.getAttribute("graphData2");
+    %>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -62,27 +67,27 @@
                     <div class="row" style="margin-left: 10px;display: grid; grid-template-columns: repeat(3, 300px); column-gap: 25px;">
                         <div class="card">
                             <div>
-                                <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
-                                <h4>456</h4>
+                                <h5 class="card-header m-0 me-2 pb-3">Total Stocks</h5>
+                                <h4><%= request.getAttribute("total_stocks")%></h4>
                             </div>
                         </div>
                         <div class="card">
                             <div>
-                                <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
-                                <h4>456</h4>
+                                <h5 class="card-header m-0 me-2 pb-3">Total Portfolios</h5>
+                                <h4><%= request.getAttribute("total_portfolios")%></h4>
                             </div>
                         </div>
                         <div class="card">
                             <div>
-                                <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
-                                <h4>456</h4>
+                                <h5 class="card-header m-0 me-2 pb-3">Total Value</h5>
+                                <h4><%= request.getAttribute("total_value")%> $</h4>
                             </div>
                         </div>
                     </div>
                     <div class="row" style="margin-top:20px;margin-left: 10px;display: grid; grid-template-columns: repeat(2, 465px); column-gap: 25px;">
                         <div class="card">
                             <div>
-                                <h5 class="card-header m-0 me-2 pb-3">Top gainers today</h5>
+                                <h5 class="card-header m-0 me-2 pb-3">Your Stocks today</h5>
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -91,11 +96,12 @@
                                     </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
+                                    <%for (ArrayList<Object> data: tableData){%>
                                     <tr>
-                                        <td>Tsla</td>
-                                        <td>30%</td>
+                                        <td><%= data.get(0)%></td>
+                                        <td><%= String.format("%.3f", data.get(1))%> %</td>
                                     </tr>
-
+                                    <%}%>
                                     </tbody>
                                 </table>
                             </div>
@@ -129,13 +135,15 @@
                 }
             })
         ))
+        const inputString = "<%= stockName%>"
+        //console.log(JSON.parse("[" + inputString.substring(1, inputString.length - 1) + "]"))
         var options = {
-            series: [44, 55, 13, 43, 22],
+            series: <%= percentage%>,
             chart: {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            labels: inputString.replace(/\[|\]/g, '').split(', '),
             responsive: [{
                 breakpoint: 480,
                 options: {
