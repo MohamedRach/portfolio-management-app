@@ -1,3 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.example.projets3.bean.ConseillerBean" %>
+<%@ page import="com.example.projets3.bean.CommentBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.projets3.bean.UserBean" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -14,7 +19,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Stock Prices</title>
+    <title>Conseiller</title>
 
     <meta name="description" content="" />
 
@@ -44,6 +49,9 @@
 </head>
 
 <body>
+<% ConseillerBean conseiller = (ConseillerBean) request.getAttribute("conseiller");%>
+<% ArrayList<CommentBean> comments = (ArrayList<CommentBean>) request.getAttribute("comments");%>
+<% ArrayList<UserBean> users = (ArrayList<UserBean>) request.getAttribute("users");%>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -64,16 +72,39 @@
                         <div class="card">
                             <div class="d-flex align-items-end row">
                                 <div class="col-sm-7">
+
                                     <div class="card-body">
-                                        <h5 class="card-title text-primary">Tom Smith</h5>
-                                        <div>
-                                            <span style="background: orange; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%; margin-right:10px; ">3.5</span>
+                                        <h5 class="card-title text-primary"><%= conseiller.getPrenom() %> <%= conseiller.getNom() %></h5>
+                                        <div style="text-align: center; margin-bottom: 10px;">
+                                            <%
+                                                double rating = conseiller.getRating();
+                                                int numberOfFullStars = (int) rating;
+                                                int remainingStars = 5 - numberOfFullStars;
+
+                                                // Iterate to display full stars
+                                                for (int i = 0; i < numberOfFullStars; i++) {
+                                            %>
                                             <span class="fa fa-star" style="color: orange;"></span>
-                                            <span class="fa fa-star" style="color: orange;"></span>
-                                            <span class="fa fa-star" style="color: orange;"></span>
+                                            <%
+                                                }
+
+                                                // If there is a partial star, display it
+                                                if (rating % 1 != 0) {
+                                            %>
+                                            <span class="fa fa-star-half" style="color: orange;"></span>
+                                            <%
+                                                    remainingStars--; // Adjust remaining stars if a half star is displayed
+                                                }
+
+                                                // Add empty stars for the remaining space
+                                                for (int i = 0; i < remainingStars; i++) {
+                                            %>
                                             <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
+                                            <%
+                                                }
+                                            %>
                                         </div>
+
                                         <div style="display: flex; flex-direction: column; row-gap: 5px; margin-top: 20px;">
                                             <div style="display: flex; flex-direction: row; column-gap: 20px;">
                                                 <p>Hourly Rate</p>
@@ -81,37 +112,48 @@
                                                 <p>Rehired</p>
                                             </div>
                                             <div style="display: flex; flex-direction: row; column-gap: 50px;">
-                                                <h5 style="text-align: center">53 $</h5>
-                                                <h5 style="margin-left: 47px">100</h5>
-                                                <h5 style="margin-left: 40px">10</h5>
+                                                <h5 style="text-align: center"><%= conseiller.getHourly_Rate() %>$</h5>
+                                                <h5 style="margin-left: 47px"><%= conseiller.getPostive_Reviews() %></h5>
+                                                <h5 style="margin-left: 40px"><%= conseiller.getRehired() %></h5>
                                             </div>
 
                                         </div>
+                                    <c:if test="${conseiller.getHired() == 0}">
                                         <a href="javascript:;" class="btn btn-md btn-primary" style="margin-top: 20px;">Hire Me</a>
+                                    </c:if>
+                                        <c:if test="${conseiller.getHired() == 1}">
+                                            <a href="javascript:;" class="btn btn-md btn-primary" style="margin-top: 20px;">Generate a review</a>
+                                        </c:if>
+
                                     </div>
+
                                 </div>
                                 <div class="col-sm-5 text-center text-sm-left">
                                     <div class="card-body pb-0 px-0 px-md-4">
-                                        <img style="border-radius: 50%; width: 100px; margin-bottom: 80px;" src="../assets/img/elements/2.jpg" alt="Card image cap" />
+                                        <img style="border-radius: 50%; width: 100px; margin-bottom: 80px;" src="<%= conseiller.getImageLink() %>" alt="Image du conseiller" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <c:if test="${conseiller.getHired() == 0}">
                         <div class="card" style="margin-top: 30px;">
                             <div class="d-flex align-items-end row">
                                 <div>
                                     <div class="card-body">
                                         <h5 class="card-title text-primary">About me</h5>
-                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <p>  <%= conseiller.getDescription() %></p>
 
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        </c:if>
                         <div class="card" style="margin-top: 30px;">
                             <div class="d-flex align-items-end row">
                                 <div>
+                                    <c:if test="${conseiller.getHired() == 1}">
                                     <div class="card-body">
                                         <h5 class="card-title text-primary">Activity</h5>
                                         <span style="background: green; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%;">What to buy</span>
@@ -130,9 +172,37 @@
                                         </div>
                                     </div>
                                 </div>
+                                </c:if>
 
                             </div>
                         </div>
+            <c:if test="${conseiller.getHired() == 1}">
+                        <div class="card" style="margin-top: 30px;">
+                            <div class="d-flex align-items-end row">
+                                <div>
+                                    <%
+                                        // Your array
+
+
+                                        // Loop to display array elements
+
+                                        for (int i = 0;i<comments.size(); i++) {
+
+                                    %>
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <h5><%=users.get(i).getNom() + " " + users.get(i).getPrenom()%></h5>
+                                            <p class="card-text">
+                                                <%= comments.get(i).getComment()%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
+
+                            </div>
+                        </div>
+            </c:if>
                     </div>
                 </div>
                 <!-- Content wrapper -->

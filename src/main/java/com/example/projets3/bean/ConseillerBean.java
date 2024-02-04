@@ -8,6 +8,47 @@ public class ConseillerBean {
     private Integer   rating;
     private String password;
     private String imageLink;
+    private String description;
+    private Integer      hired;
+    private Integer      Hourly_Rate;
+    private Integer      Postive_Reviews;
+    private Integer      Rehired;
+
+    public Integer getRehired() {
+        return Rehired;
+    }
+
+    public void setRehired(Integer rehired) {
+        Rehired = rehired;
+    }
+
+    public Integer getPostive_Reviews() {
+        return Postive_Reviews;
+    }
+
+    public void setPostive_Reviews(Integer postive_Reviews) {
+        Postive_Reviews = postive_Reviews;
+    }
+
+    public Integer getHourly_Rate() {
+        return Hourly_Rate;
+    }
+
+    public void setHourly_Rate(Integer hourly_Rate) {
+        Hourly_Rate = hourly_Rate;
+    }
+
+
+
+
+
+    public Integer getHired() {
+        return hired;
+    }
+
+    public void setHired(Integer hired) {
+        this.hired = hired;
+    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -60,6 +101,12 @@ public class ConseillerBean {
     // Setter pour imageLink
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
