@@ -19,7 +19,7 @@ public class reportDaoImpl implements reportDao {
         report.setId(resultSet.getInt("id"));
         report.setName(resultSet.getString("name"));
         report.setFirst_period_start(resultSet.getString("first_period_start"));
-        report.setFirst_period_start(resultSet.getString("first_period_start"));
+        report.setFirst_period_end(resultSet.getString("first_period_end"));
         report.setSecond_period_start(resultSet.getString("second_period_start"));
         report.setSecond_period_end(resultSet.getString("second_period_end"));
         report.setThird_period_start(resultSet.getString("third_period_start"));
