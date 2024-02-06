@@ -34,8 +34,9 @@ public class portfolioServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         int portfolio_id = Integer.parseInt(request.getParameter("id"));
-        portfolioBean portfolio = this.portfolioDao.getPortfolio(portfolio_id,1);
+        portfolioBean portfolio = this.portfolioDao.getPortfolio(portfolio_id,(int) session.getAttribute("id"));
         ArrayList<stockBean> stocks = this.stockDao.getStocks(portfolio_id);
         ArrayList<Float> priceData = new ArrayList<>();
         ArrayList<Float> quoteData = new ArrayList<>();
@@ -43,9 +44,9 @@ public class portfolioServlet extends HttpServlet {
         ArrayList<ArrayList<String>> financialData = new ArrayList<>();
         float total_value = 0;
         for(stockBean stock:stocks) {
+            //String symbole = this.apiCommunication.getStockSymbole(stock.getName());
             ArrayList<String> subList = this.apiCommunication.getFinancials(stock.getName());
             financialData.add(subList);
-            //String symbole = this.apiCommunication.getStockSymbole(stock.getName());
             stockData = this.apiCommunication.getStockData(stock.getName(), "TIME_SERIES_INTRADAY");
             ArrayList<Float> quote = this.apiCommunication.getQuoteData(stock.getName());
             for (int i = 0; i < stockData.size(); i++) {
@@ -70,20 +71,24 @@ public class portfolioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //HttpSession session = request.getSession();
-        //int user_id = (int) session.getAttribute("id");
-        /*
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        portfolioBean portfolio = new portfolioBean();
-        portfolio.setName(name);
-        portfolio.setDescription(description);
-        portfolio.setUser_id(1);
-        this.portfolioDao.createPortfolio(portfolio);
+        HttpSession session = request.getSession();
+        int user_id = (int) session.getAttribute("id");
 
-        response.sendRedirect("/dashboard");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int portfolio_id = Integer.parseInt(request.getParameter("portfolio"));
+        float purshasePrice = Float.parseFloat(request.getParameter("purshasePrice"));
+        String purshaseDate = request.getParameter("purshaseDate");
+        String stockName = request.getParameter("stockName");
+        stockBean stock = new stockBean();
+        stock.setQuantity(quantity);
+        stock.setPortfolio_id(portfolio_id);
+        stock.setPurchasePrice(purshasePrice);
+        stock.setPurchaseDate(purshaseDate);
+        stock.setName(stockName);
+        this.stockDao.addStock(stock);
+        response.sendRedirect("/portfolio?id="+ portfolio_id);
 
-         */
+
 
 
     }

@@ -162,10 +162,10 @@
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     </script>
+    <script src="../assets/js/searchInput.js"></script>
     <script src="../assets/js/stateManagement.js"></script>
     <script>
         let originalString = "<%= portfolios%>";
-
         // Fix the input string to make it a valid JSON format
         let fixedString = originalString.replace(/\b([a-zA-Z_]\w*\s*)\b/g, '"$1"');
 

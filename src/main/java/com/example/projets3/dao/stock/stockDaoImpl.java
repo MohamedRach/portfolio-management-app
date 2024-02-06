@@ -19,7 +19,7 @@ public class stockDaoImpl implements stockDao{
         stockBean stock = new stockBean();
         stock.setId(resultSet.getInt("id"));
         stock.setName(resultSet.getString("name"));
-        stock.setPurchaseDate(resultSet.getDate("purshaseDate"));
+        stock.setPurchaseDate(resultSet.getString("purshaseDate"));
         stock.setPurchasePrice(resultSet.getFloat("purshasePrice"));
         stock.setQuantity(resultSet.getInt("quantity"));
         stock.setPortfolio_id(resultSet.getInt("portfolio_id"));
@@ -37,7 +37,7 @@ public class stockDaoImpl implements stockDao{
 
     @Override
     public ArrayList<stockBean> getStocks(int portfolio) throws DAOException {
-        final String SQL_SELECT = "SELECT * FROM stocks WHERE portfolio_id = ?";
+        final String SQL_SELECT = "SELECT * FROM stock WHERE portfolio_id = ?";
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -59,7 +59,7 @@ public class stockDaoImpl implements stockDao{
 
     @Override
     public stockBean getStock(int portfolio, int id) throws DAOException {
-        final String SQL_SELECT = "SELECT * FROM stocks WHERE portfolio_id = ? and id = ?";
+        final String SQL_SELECT = "SELECT * FROM stock WHERE portfolio_id = ? and id = ?";
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -82,7 +82,7 @@ public class stockDaoImpl implements stockDao{
     public void addStock(stockBean stock) throws DAOException {
         final String SQL_INSERT = "INSERT INTO stock(name, purshasePrice, purshaseDate, quantity, portfolio_id) VALUES (?,?,?,?,?)";
         try (Connection connexion = daoFactory.getConnection();
-             PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_INSERT, stock.getName(), stock.getPurchasePrice(), stock.getPurchaseDate(), stock.getPortfolio_id())) {
+             PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_INSERT, stock.getName(), stock.getPurchasePrice(), stock.getPurchaseDate(),stock.getQuantity(), stock.getPortfolio_id())) {
             int statut = preparedStatement.executeUpdate();
             if (statut == 0) {
                 throw new DAOException("Échec de la création de stock, aucune ligne ajoutée dans la table.");

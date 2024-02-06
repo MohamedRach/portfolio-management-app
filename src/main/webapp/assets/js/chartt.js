@@ -13,28 +13,29 @@ class HelloWorld extends HTMLElement {
         });
     }
     convertData() {
-        const datesString = this.getAttribute("datesData");
-        const numbersString = this.getAttribute("priceData");
-        const datesArray = datesString.match(/\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/g).map(entry => {
-            const [date] = entry.slice(1).split(',').map(item => item.trim());
-            return date;
-        });
-
-// Extract numbers using regex
-        const numbersArray = numbersString.match(/\d+\.\d+/g).map(Number);
-
-        // Ensure the arrays are of the same length
-        const minLength = Math.min(datesArray.length, numbersArray.length);
-
-// Create an array of objects with paired dates and numbers
-        const pairedArray = [];
-        for (let i = 0; i < minLength; i++) {
-            pairedArray.push([
-                datesArray[i],
-                numbersArray[i]
-            ]);
+        const data = [];
+        console.log(this.getAttribute("data"))
+        var jsonString = this.getAttribute("data").replace(/(\d{4}-\d{2}-\d{2})/g, '"$1"');
+        var arrayOfArrays = null
+        try{
+            arrayOfArrays = JSON.parse(jsonString);
+        } catch (error) {
+            jsonString = this.getAttribute("data").replace(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/g, '"$1"');
+            arrayOfArrays = JSON.parse(jsonString)
         }
-        return pairedArray
+
+        //const arrayOfStringDates = arrayOfArrays.map(([date, value]) => [String(date), value]);
+        arrayOfArrays.forEach((array) => {
+            data.push({
+                x: array[0],
+                y: array[1]
+            })
+        })
+        var sortedData = data.sort(function (a,b) {
+            return new Date(b.x) - new Date(a.x)
+        })
+        const finalData = this.convertToUnixTimestamp(sortedData)
+        return finalData
     }
     createChart() {
         const data = this.convertData()
@@ -80,8 +81,9 @@ class HelloWorld extends HTMLElement {
     }
     convertData2() {
         const data = this.getAttribute("financialData")
-        const jsonString = data.replace(/(\d+Q\d{4}|\d+\.\d+[BM])/g, '"$1"');
+        const jsonString = data.replace(/(-?\d+Q\d{4}|-?\d+\.\d+[BM]|-?\d+\.\d{2}[BM]|-?\d+M)/g, '"$1"');
 // Parse the preprocessed string into an array of arrays
+        console.log(jsonString)
         const resultArray = JSON.parse(jsonString);
         const modifiedArray = resultArray.map(subArray => subArray.map(item => {
             if (subArray[0] !== item) {
@@ -93,9 +95,9 @@ class HelloWorld extends HTMLElement {
         return modifiedArray
     }
     creatChart2() {
-        const data = this.creatChart2();
-        const date = data.map(subArray => subArray[0]);
-        const revenue = data.map(subArray => subArray[1]);
+        const data = this.convertData2();
+        const date = data.map(subArray => subArray[0]).slice(0,-1);
+        const revenue = data.map(subArray => subArray[1]).slice(0,-1);
         const earnings = data.map(subArray => subArray[2]);
 
         var options = {
@@ -131,13 +133,7 @@ class HelloWorld extends HTMLElement {
             fill: {
                 opacity: 1
             },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return "$ " + val + " thousands"
-                    }
-                }
-            }
+
         };
         return options
     }
@@ -151,16 +147,16 @@ class HelloWorld extends HTMLElement {
     }
     // connect component
     connectedCallback() {
-        console.log(this.convertData())
-        /*
+        console.log(this.getAttribute("data"))
+
         const totalRevenueChartEl = document.querySelector('#totalRevenueChart')
         const totalRevenueChart = new ApexCharts(totalRevenueChartEl, this.createChart());
         totalRevenueChart.render();
 
-         */
 
-
-
+        const second_chart = document.querySelector('#second_chart')
+        var chart = new ApexCharts(second_chart, this.creatChart2());
+        chart.render();
     }
 
 }

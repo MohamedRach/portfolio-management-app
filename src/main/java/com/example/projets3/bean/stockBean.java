@@ -8,7 +8,7 @@ public class stockBean {
     private String name;
     private float purchasePrice;
     private int quantity;
-    private Date purchaseDate;
+    private String purchaseDate;
     private int portfolio_id;
 
     public int getId() {
@@ -43,11 +43,11 @@ public class stockBean {
         this.quantity = quantity;
     }
 
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 

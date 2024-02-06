@@ -67,7 +67,7 @@
                                 <div class="col-md-8">
                                     <h5 class="card-header m-0 me-2 pb-3">Add Portfolio</h5>
                                     <div>
-                                        <form action="portfolioServlet" method="post" onsubmit="onSubmit()" style="margin-left: 20px; display: flex; flex-direction: column; justify-content: center">
+                                        <form action="addPortfolio" method="post" onsubmit="onSubmit()" style="margin-left: 20px; display: flex; flex-direction: column; justify-content: center">
                                             <label for="nameWithTitle" class="form-label">Name</label>
                                             <input
                                                     type="text"

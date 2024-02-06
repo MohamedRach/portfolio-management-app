@@ -41,17 +41,19 @@ public class signupServlet extends HttpServlet {
         UserBean user = userDao.findByEmail(email);
         if (user == null) {
             try {
-
                 UserBean newUser = new UserBean();
                 newUser.setNom(nom);
                 newUser.setPrenom(prenom);
                 newUser.setEmail(email);
                 newUser.setPassword(pass);
                 userDao.create(newUser);
+                UserBean user1 = userDao.findByEmail(email);
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
+                session.setAttribute("id", user1.getId());
+
                 // Redirect to the /users page after successful creation
-                response.sendRedirect(request.getContextPath() + "/users");
+                response.sendRedirect(request.getContextPath() + "/dashboard");
 
 
             } catch (Exception e) {

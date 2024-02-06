@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.projets3.bean.portfolioBean" %>
 <%@page buffer="8192kb" autoFlush="true" %>
 <!DOCTYPE html>
 <html
@@ -98,7 +99,7 @@ ArrayList<ArrayList<String>> financialData = (ArrayList<ArrayList<String>>) requ
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                                                            <h5 class="modal-title" id="modalCenterTitle">Add Stock to portfolio</h5>
                                                             <button
                                                                     type="button"
                                                                     class="btn-close"
@@ -106,46 +107,66 @@ ArrayList<ArrayList<String>> financialData = (ArrayList<ArrayList<String>>) requ
                                                                     aria-label="Close"
                                                             ></button>
                                                         </div>
+                                                        <form action="portfolio" method="post">
                                                         <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col mb-3">
-                                                                    <label for="nameWithTitle" class="form-label">Name</label>
+
+                                                            <div class="row g-2">
+                                                                <div class="col mb-0">
+                                                                    <label for="nameWithTitle" class="form-label">Quantity</label>
                                                                     <input
-                                                                            type="text"
+                                                                            type="number"
                                                                             id="nameWithTitle"
                                                                             class="form-control"
-                                                                            placeholder="Enter Name"
+                                                                            name="quantity"
+                                                                            placeholder="Enter quantity"
                                                                     />
+                                                                </div>
+                                                                <div class="col mb-0">
+                                                                    <label for="nameWithTitle" class="form-label">Select portfolio</label>
+                                                                    <select
+                                                                            type="number"
+                                                                            name="portfolio"
+                                                                            class="form-control"
+                                                                    >
+                                                                        <% for(portfolioBean portfolio: (ArrayList<portfolioBean>) request.getAttribute("portfolios")){%>
+                                                                            <option value="<%= portfolio.getId()%>"><%= portfolio.getName()%></option>
+                                                                        <% } %>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="row g-2">
                                                                 <div class="col mb-0">
-                                                                    <label for="emailWithTitle" class="form-label">Email</label>
+                                                                    <label for="emailWithTitle" class="form-label">Purshase price</label>
                                                                     <input
-                                                                            type="text"
+                                                                            type="number"
                                                                             id="emailWithTitle"
+                                                                            name="purshasePrice"
                                                                             class="form-control"
-                                                                            placeholder="xxxx@xxx.xx"
+                                                                            name="purshasePrice"
                                                                     />
                                                                 </div>
                                                                 <div class="col mb-0">
-                                                                    <label for="dobWithTitle" class="form-label">DOB</label>
+                                                                    <label for="dobWithTitle" class="form-label">purshase date</label>
                                                                     <input
-                                                                            type="text"
+                                                                            type="date"
                                                                             id="dobWithTitle"
                                                                             class="form-control"
+                                                                            name="purshaseDate"
                                                                             placeholder="DD / MM / YY"
                                                                     />
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" name="stockName" value="<%= request.getAttribute("symbole")%>"/>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                                                 Close
                                                             </button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
                                                         </div>
+                                                        </form>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -264,7 +285,7 @@ ArrayList<ArrayList<String>> financialData = (ArrayList<ArrayList<String>>) requ
     <script src="../assets/js/ui-modals.js"></script>
 <!-- Page JS -->
 <!--<script src="../assets/js/dashboards-analytics.js"></script>-->
-<script src="../assets/js/chart.js"></script>
+<script src="../assets/js/chartt.js"></script>
 <stock-chart data="<%= request.getAttribute("data")%>" financialData=" <%= request.getAttribute("financialData")%>"></stock-chart>>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>

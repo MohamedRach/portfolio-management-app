@@ -81,8 +81,9 @@ class HelloWorld extends HTMLElement {
     }
     convertData2() {
         const data = this.getAttribute("financialData")
-        const jsonString = data.replace(/(\d+Q\d{4}|\d+\.\d+[BM])/g, '"$1"');
+        const jsonString = data.replace(/(-?\d+Q\d{4}|-?\d+\.\d+[BM]|-?\d+\.\d{2}[BM]|-?\d+M)/g, '"$1"');
 // Parse the preprocessed string into an array of arrays
+        console.log(jsonString)
         const resultArray = JSON.parse(jsonString);
         const modifiedArray = resultArray.map(subArray => subArray.map(item => {
             if (subArray[0] !== item) {
