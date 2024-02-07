@@ -42,7 +42,6 @@ public class dashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-
         if(Objects.equals(session.getAttribute("role"), "conseiller")){
             int conseiller_id = (int) session.getAttribute("id_conseiller");
             ArrayList<HiringBean> hirings = this.hiringDao.getAllClients(conseiller_id);
