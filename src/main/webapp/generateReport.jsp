@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.projets3.bean.portfolioBean" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -47,7 +49,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
@@ -77,6 +79,18 @@
                                                     name="name"
                                                     style="width: 25%; margin-bottom: 20px"
                                             />
+                                            <label for="portfolio" class="form-label">Portfolio</label>
+                                            <select
+                                                    type="text"
+                                                    id="portfolio"
+                                                    class="form-control"
+                                                    name="portfolio"
+                                                    style="width: 25%; margin-bottom: 20px"
+                                            >
+                                                <% for(portfolioBean port: (ArrayList<portfolioBean>) request.getAttribute("portfolios")){%>
+                                                    <option value="<%= port.getId()%>"><%= port.getName()%></option>
+                                                <%}%>
+                                            </select>
                                             <div style="display: flex;flex-direction: row; column-gap: 20px;margin-bottom: 20px">
                                                 <label style="margin-top: 15px" for="firtperiodstart" class="form-label">First period start</label>
                                                 <input class="form-control" name="firstPeriodStart" type="date" placeholder="Enter Date" id="firtperiodstart" style="width: 230px; height: 50px" />

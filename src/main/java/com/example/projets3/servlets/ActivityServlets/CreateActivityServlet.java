@@ -42,7 +42,7 @@ import jakarta.servlet.http.*;
         String desc_sell = request.getParameter("desc_sell");
 
         HttpSession session = request.getSession();
-        Integer id_conseiller = (Integer) session.getAttribute("id_user");
+        Integer id_conseiller = (Integer) session.getAttribute("id_conseiller");
 
 
         // Create a new ConseillerBean with the extracted data
@@ -60,7 +60,7 @@ import jakarta.servlet.http.*;
             activityDao.create(newActivity);
 
             // Redirect to the /conseillers page after successful creation
-            response.sendRedirect(request.getContextPath() + "/conseiller");
+            response.sendRedirect(request.getContextPath() + "/dashboard");
         } catch (DAOException e) {
             // Handle errors (you might want to display an error message or log the exception)
             e.printStackTrace();

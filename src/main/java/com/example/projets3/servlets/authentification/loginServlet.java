@@ -18,12 +18,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class loginServlet extends HttpServlet {
     private UserDao userDao;
     private ConseillerDao conseillerDao;
     private authentification auth;
     private googleAuth google_auth;
+
     public void init() {
         daoFactory dao_Factory = daoFactory.getInstance();
         this.google_auth = googleAuth.getInstance();
@@ -34,8 +36,16 @@ public class loginServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Forward the request to the JSP page for creating a new user
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-        dispatcher.forward(request, response);
+        if(Objects.equals(request.getParameter("type"), "admin")){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Adminlogin.jsp");
+            dispatcher.forward(request, response);
+        } else if(Objects.equals(request.getParameter("type"), "conseiller")){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Consultantslogin.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -48,23 +58,46 @@ public class loginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + url);
         } else {
             try {
-                // find the user in the database
-                UserBean User = userDao.findByEmail(email);
-                ConseillerBean Conseiller = conseillerDao.findByEmail(email);
-                boolean auth_success = this.auth.authenticate(password.toCharArray(), User.getPassword());
-                if(auth_success) {
-                    HttpSession session = request.getSession();
+                if(request.getParameter("consultants") != null){
+                    ConseillerBean conseiller = this.conseillerDao.find(email);
 
-                    session.setAttribute("email", email);
+                    boolean auth_success = this.auth.authenticate(password.toCharArray(), conseiller.getPassword());
+                    if(auth_success) {
+                        HttpSession session = request.getSession();
 
-                    session.setAttribute("id_user", User.getId()); // set the user in the session
-                    //session.setAttribute("id_conseiller",Conseiller.getId()); // set the user in the session
+                        session.setAttribute("email", email);
+
+                        session.setAttribute("id_conseiller", conseiller.getId()); // set the user in the session
+                        session.setAttribute("role","conseiller"); // set the user in the session
 
 
-                    // Redirect to the /users page after successful creation
-                    response.sendRedirect(request.getContextPath() + "/dashboard");
+                        // Redirect to the /users page after successful creation
+
+                    } else {
+                        System.out.println("unauthorized");
+                    }
+                } else if(request.getParameter("admin") != null){
+
                 } else {
-                    System.out.println("unauthorized");
+                // find the user in the database
+                    UserBean User = userDao.findByEmail(email);
+                    //ConseillerBean Conseiller = conseillerDao.findByEmail(email);
+                    boolean auth_success = this.auth.authenticate(password.toCharArray(), User.getPassword());
+                    if(auth_success) {
+                        HttpSession session = request.getSession();
+
+                        session.setAttribute("email", email);
+
+                        session.setAttribute("id_user", User.getId()); // set the user in the session
+                        session.setAttribute("role", "user");
+
+
+                        // Redirect to the /users page after successful creation
+
+                    }else {
+                        System.out.println("unauthorized");
+                    }
+
                 }
 
             } catch (DAOException e) {
@@ -74,10 +107,6 @@ public class loginServlet extends HttpServlet {
             }
         }
 
-
-
-
-
-
+        response.sendRedirect(request.getContextPath() + "/dashboard");
     }
 }

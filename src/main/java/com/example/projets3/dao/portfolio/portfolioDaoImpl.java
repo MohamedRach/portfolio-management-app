@@ -54,8 +54,8 @@ public class portfolioDaoImpl implements portfolioDao{
         }
     }
     @Override
-    public portfolioBean getPortfolio(int id, int user_id) throws DAOException {
-        final String SQL_SELECT = "SELECT * FROM portfolio where id = ? and user_id = ?";
+    public portfolioBean getPortfolio(int id) throws DAOException {
+        final String SQL_SELECT = "SELECT * FROM portfolio where id = ?";
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -63,7 +63,7 @@ public class portfolioDaoImpl implements portfolioDao{
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initRequestPrepare(connexion, SQL_SELECT, id, user_id);
+            preparedStatement = initRequestPrepare(connexion, SQL_SELECT, id);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 portfolio = map(resultSet);
@@ -95,4 +95,20 @@ public class portfolioDaoImpl implements portfolioDao{
         }
         return portfolios;
     }
+
+    @Override
+    public void deletePortfolio(int id) throws DAOException {
+        final String SQL_delete = "DELETE FROM portfolio WHERE id = ?";
+        try (Connection connexion = daoFactory.getConnection();
+             PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_delete, id)) {
+            int statut = preparedStatement.executeUpdate();
+            if (statut == 0) {
+                throw new DAOException("Échec de la supression de stock, aucune ligne suprimée dans la table.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+
 }

@@ -32,7 +32,7 @@ public class addPortfolio extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        int user_id = (int) session.getAttribute("id");
+        int user_id = (int) session.getAttribute("id_user");
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");

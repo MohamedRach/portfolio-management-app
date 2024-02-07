@@ -31,7 +31,7 @@ public class ConseillerDaoImpl implements ConseillerDao {
         conseillerBean.setPostive_Reviews(resultSet.getInt("Postive_Reviews"));
         conseillerBean.setRehired(resultSet.getInt("Rehired"));
 
-        conseillerBean.setPassword("DEFAULTPASSWORD");
+        conseillerBean.setPassword(resultSet.getString("password"));
 
         return conseillerBean;
     }
@@ -46,8 +46,25 @@ public class ConseillerDaoImpl implements ConseillerDao {
     }
 
     @Override
-    public ConseillerBean find(int id) throws DAOException {
-        return null;
+    public ConseillerBean find(String email) throws DAOException {
+        ConseillerBean conseiller = null;
+        final String SQL_FIND_CONSEILLER_BY_ID = "SELECT * FROM conseiller WHERE email = ?";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_CONSEILLER_BY_ID)) {
+
+            preparedStatement.setNString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                conseiller = map(resultSet);
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Erreur lors de la recherche du conseiller par ID.", e);
+        }
+
+        return conseiller;
     }
 
     @Override
@@ -115,11 +132,11 @@ public class ConseillerDaoImpl implements ConseillerDao {
 
     @Override
     public void createConseiller(ConseillerBean conseiller) throws DAOException {
-        final String SQL_INSERT = "INSERT INTO conseiller (nom, prenom, email, password, imageLink) VALUES (?, ?, ?, ? , ?)";
+        final String SQL_INSERT = "INSERT INTO conseiller (nom, prenom, email, password,description, imageLink) VALUES (?, ?, ?, ?, ? , ?)";
 
         try (Connection connexion = daoFactory.getConnection();
              PreparedStatement preparedStatement = initRequestPrepare(connexion, SQL_INSERT, conseiller.getNom(),
-                     conseiller.getPrenom(), conseiller.getEmail(), conseiller.getPassword() , conseiller.getImageLink())) {
+                     conseiller.getPrenom(), conseiller.getEmail(), conseiller.getPassword(), conseiller.getDescription() , conseiller.getImageLink())) {
 
             int statut = preparedStatement.executeUpdate();
             if (statut == 0) {

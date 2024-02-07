@@ -1,3 +1,5 @@
+import {globalState} from "./stateManagement";
+
 function createSubArrayItems() {
     const subMenu = document.getElementById("subMenu");
     console.log(globalState.getState())

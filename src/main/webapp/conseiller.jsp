@@ -71,7 +71,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
@@ -260,20 +260,24 @@
     <!-- / Layout wrapper -->
 
     <script>
-        const menus = document.querySelectorAll(".menu-item");
+
+        const menus = document.querySelectorAll(".menu-toggle");
+        console.log(menus)
         menus.forEach((menu) => (
             menu.addEventListener("click", (e) => {
                 e.preventDefault()
-                if (menu.classList.contains('open')) {
+                if (menu.parentElement.classList.contains('open')) {
                     // The 'open' class is present in the element's class list
-                    menu.classList.remove("open")
+                    menu.parentElement.classList.remove("open")
                 } else {
                     // The 'open' class is not present in the element's class list
-                    menu.classList.add("open")
+                    menu.parentElement.classList.add("open")
                 }
             })
         ))
     </script>
+    <script src="../assets/js/searchInput.js"></script>
+    <script src="../assets/js/createSubArray.js"></script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -292,9 +296,7 @@
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <!--<script src="../assets/js/dashboards-analytics.js"></script>-->
-    <script src="../assets/js/chartt.js"></script>
-    <stock-chart data="<%= request.getAttribute("data")%>"></stock-chart>>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
