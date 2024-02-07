@@ -124,16 +124,8 @@
                                     <!-- Buttons -->
                                     <form action="conseiller" method="post">
                                         <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
+                                        <input type="hidden" name="id_btn" value="2" />
                                         <button  type="submit" style="width: 100%" class="btn btn-primary">Voir le profil</button>
-                                    </form>
-                                    <form action="conseiller" method="post">
-                                        <!-- Add a hidden input field for idconseiller -->
-                                        <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
-
-                                        <!-- Other form fields, if any -->
-
-                                        <!-- "Hire Me" button -->
-                                        <button type="submit" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire Me</button>
                                     </form>
 
                                 </div>
@@ -198,19 +190,10 @@
                                     <!-- Buttons -->
                                     <form action="conseiller" method="post">
                                         <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
-
+                                        <input type="hidden" name="id_btn" value="1" />
                                         <button type="submit" style="width: 100%" class="btn btn-primary">Voir le profil</button>
                                     </form>
-                                    <form action="conseiller" method="post">
-                                        <!-- Add a hidden input field for idconseiller -->
-                                        <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
 
-
-                                        <!-- Other form fields, if any -->
-
-                                        <!-- "Hire Me" button -->
-                                        <button type="submit" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire Me</button>
-                                    </form>
 
                                 </div>
                             </div>

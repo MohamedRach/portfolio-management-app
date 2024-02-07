@@ -140,7 +140,7 @@
                                             <form action="/conseiller" method="post">
                                                 <!-- Add a hidden input field for idconseiller -->
                                                 <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
-
+                                                <input type="hidden" name="id_btn" value="3" />
                                                 <!-- Other form fields, if any -->
 
                                                 <!-- "Hire Me" button -->
@@ -215,7 +215,7 @@
 
                                         <div   class="card-body">
                                             <h5><%=users.get(i).getNom() + " " + users.get(i).getPrenom()%> :</h5>
-                                            <p  id="commentSection" class="card-text">
+                                            <p   class="card-text">
                                                 <%= comments.get(i).getComment()%>
                                             </p>
                                         </div>
@@ -227,10 +227,11 @@
                                                         <div>
                                                             <div class="card-body">
 
-                                                                <h5 class="card-title text-primary">Add Comment</h5>
+                                                                <h5 id="commentSection" class="card-title text-primary">Add Comment</h5>
                                                                 <form action="conseiller" method="post">
                                                                     <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
                                                                     <input type="hidden" name="hiredConseillersIds" value="<%= hiredConseillersIds %>  " />
+                                                                    <input type="hidden" name="id_btn" value="4" />
                                                                     <div class="form-group">
                                                                         <textarea class="form-control" name="comment" rows="3" placeholder="Enter your comment"></textarea>
                                                                     </div>

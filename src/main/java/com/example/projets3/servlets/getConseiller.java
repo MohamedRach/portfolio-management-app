@@ -111,6 +111,7 @@ public class getConseiller extends HttpServlet {
         // Extract conseiller data from the form
 
         Integer id_conseiller = Integer.valueOf(request.getParameter("id_conseiller"));
+        Integer id_btn = Integer.valueOf(request.getParameter("id_btn"));
         HttpSession session = request.getSession();
         Integer id_user = (Integer) session.getAttribute("id_user");
         Set<Integer> hiredConseillersIds = hiringDao.getHiredConseillersIds(id_user);
@@ -133,6 +134,7 @@ public class getConseiller extends HttpServlet {
                 // Add the new comment to the database
                 try {
                     commentDao.create(comment);
+                    response.sendRedirect(request.getContextPath() + "/conseiller?id=" + id_conseiller);
                 } catch (DAOException e) {
                     // Handle errors (you might want to display an error message or log the exception)
                     e.printStackTrace();
@@ -143,23 +145,28 @@ public class getConseiller extends HttpServlet {
         }
 
         else {
-            // Create a new HiringBean
-            HiringBean newHiring = new HiringBean();
-            newHiring.setId_user(id_user);
-            newHiring.setId_conseiller(id_conseiller);
-
-            // Add the new hiring to the database
-            try {
-                hiringDao.create(newHiring);
-            } catch (DAOException e) {
-                // Handle errors (you might want to display an error message or log the exception)
-                e.printStackTrace();
-                response.getWriter().println("Error hiring");
-                return; // Exit the method if an error occurs
+            if (id_btn == 1) {
+                response.sendRedirect(request.getContextPath() + "/conseiller?id=" + id_conseiller);
             }
+            else {
+                // Create a new HiringBean
+                HiringBean newHiring = new HiringBean();
+                newHiring.setId_user(id_user);
+                newHiring.setId_conseiller(id_conseiller);
 
-            // Redirect to the /conseillers page after successful creation
-            response.sendRedirect(request.getContextPath() + "/conseiller");
+                // Add the new hiring to the database
+                try {
+                    hiringDao.create(newHiring);
+                } catch (DAOException e) {
+                    // Handle errors (you might want to display an error message or log the exception)
+                    e.printStackTrace();
+                    response.getWriter().println("Error hiring");
+                    return; // Exit the method if an error occurs
+                }
+
+                // Redirect to the /conseillers page after successful creation
+                response.sendRedirect(request.getContextPath() + "/conseiller");
+            }
         }
     }
 
