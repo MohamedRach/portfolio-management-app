@@ -74,9 +74,7 @@ public class CreateConseillerServlet extends HttpServlet {
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
-        System.out.println("Nom: " + nom);
-        System.out.println("Prenom: " + prenom);
-        System.out.println("Email: " + email);
+
         Part image = request.getPart("image");
         String imageLink = savePart(image);
 

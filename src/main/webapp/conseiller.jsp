@@ -3,6 +3,8 @@
 <%@ page import="com.example.projets3.bean.CommentBean" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.projets3.bean.UserBean" %>
+<%@ page import="com.example.projets3.bean.ActivityBean" %>
+<%@ page import="java.util.Set" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -52,6 +54,19 @@
 <% ConseillerBean conseiller = (ConseillerBean) request.getAttribute("conseiller");%>
 <% ArrayList<CommentBean> comments = (ArrayList<CommentBean>) request.getAttribute("comments");%>
 <% ArrayList<UserBean> users = (ArrayList<UserBean>) request.getAttribute("users");%>
+<% ArrayList<ActivityBean> activities = (ArrayList<ActivityBean>) request.getAttribute("activities");%>
+<% Set<Integer> hiredConseillersIds = (Set<Integer>) request.getAttribute("hiredConseillersIds");%>
+<script>
+    function scrollToComments() {
+        // Récupérer l'élément avec l'identifiant de la section des commentaires
+        var commentSection = document.getElementById('commentSection');
+
+        // Faire défiler la fenêtre jusqu'à la section des commentaires
+        commentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+</script>
+
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -75,7 +90,9 @@
 
                                     <div class="card-body">
                                         <h5 class="card-title text-primary"><%= conseiller.getPrenom() %> <%= conseiller.getNom() %></h5>
+
                                         <div style="text-align: center; margin-bottom: 10px;">
+                                            <span style="background: orange; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%;  margin-left: 20px; margin-right:10px; "><%= conseiller.getRating() %></span>
                                             <%
                                                 double rating = conseiller.getRating();
                                                 int numberOfFullStars = (int) rating;
@@ -84,7 +101,7 @@
                                                 // Iterate to display full stars
                                                 for (int i = 0; i < numberOfFullStars; i++) {
                                             %>
-                                            <span class="fa fa-star" style="color: orange;"></span>
+                                            <span class="fa fa-star" style="color: orange; "></span>
                                             <%
                                                 }
 
@@ -118,12 +135,23 @@
                                             </div>
 
                                         </div>
-                                    <c:if test="${conseiller.getHired() == 0}">
-                                        <a href="javascript:;" class="btn btn-md btn-primary" style="margin-top: 20px;">Hire Me</a>
-                                    </c:if>
-                                        <c:if test="${conseiller.getHired() == 1}">
-                                            <a href="javascript:;" class="btn btn-md btn-primary" style="margin-top: 20px;">Generate a review</a>
+
+                                        <c:if test="${hiredConseillersIds.contains(conseiller.getId())==false}">
+                                            <form action="/conseiller" method="post">
+                                                <!-- Add a hidden input field for idconseiller -->
+                                                <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
+
+                                                <!-- Other form fields, if any -->
+
+                                                <!-- "Hire Me" button -->
+                                                <button type="submit" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire Me</button>
+                                            </form>
                                         </c:if>
+
+                                        <c:if test="${hiredConseillersIds.contains(conseiller.getId())==true}">
+                                            <a href="javascript:void(0);" onclick="scrollToComments();" class="btn btn-md btn-primary" style="margin-top: 20px;">Give a review</a>
+                                        </c:if>
+
 
                                     </div>
 
@@ -136,7 +164,7 @@
                             </div>
                         </div>
 
-                        <c:if test="${conseiller.getHired() == 0}">
+                        <c:if test="${hiredConseillersIds.contains(conseiller.getId())==false}">
                         <div class="card" style="margin-top: 30px;">
                             <div class="d-flex align-items-end row">
                                 <div>
@@ -153,22 +181,23 @@
                         <div class="card" style="margin-top: 30px;">
                             <div class="d-flex align-items-end row">
                                 <div>
-                                    <c:if test="${conseiller.getHired() == 1}">
+                                    <c:if test="${hiredConseillersIds.contains(conseiller.getId())==true}">
                                     <div class="card-body">
                                         <h5 class="card-title text-primary">Activity</h5>
                                         <span style="background: green; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%;">What to buy</span>
                                         <div style="border-bottom: 0.8px solid darkgrey;margin-top: 8px; margin-bottom: 10px;">
-                                            <p> buy 50 shares of microsoft stock</p>
-                                            <button class="btn btn-sm btn-outline-primary" style="margin-bottom: 8px">View details</button>
+                                            <c:forEach var="activity" items="${activities}">
+                                             <p> <p>${activity.desc_buy}</p>
+                                            </c:forEach>
+
                                         </div>
-                                        <div style="border-bottom: 0.8px solid darkgrey;margin-top: 8px; margin-bottom: 10px;">
-                                            <p> buy 50 shares of microsoft stock</p>
-                                            <button class="btn btn-sm btn-outline-primary" style="margin-bottom: 8px">View details</button>
-                                        </div>
+
                                         <span style="background: red; color: white; width: 10px; height: 7px; padding: 3px 4px; border-radius: 7%;">What to sell</span>
                                         <div style="border-bottom: 0.8px solid darkgrey;margin-top: 8px; margin-bottom: 10px;">
-                                            <p> buy 50 shares of microsoft stock</p>
-                                            <button class="btn btn-sm btn-outline-primary" style="margin-bottom: 8px">View details</button>
+                                            <c:forEach var="activity" items="${activities}">
+                                                <p> <p>${activity.desc_sell}</p>
+                                            </c:forEach>
+
                                         </div>
                                     </div>
                                 </div>
@@ -176,33 +205,47 @@
 
                             </div>
                         </div>
-            <c:if test="${conseiller.getHired() == 1}">
+
                         <div class="card" style="margin-top: 30px;">
-                            <div class="d-flex align-items-end row">
-                                <div>
-                                    <%
-                                        // Your array
 
-
-                                        // Loop to display array elements
-
+                            <%
                                         for (int i = 0;i<comments.size(); i++) {
 
                                     %>
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <h5><%=users.get(i).getNom() + " " + users.get(i).getPrenom()%></h5>
-                                            <p class="card-text">
+
+                                        <div   class="card-body">
+                                            <h5><%=users.get(i).getNom() + " " + users.get(i).getPrenom()%> :</h5>
+                                            <p  id="commentSection" class="card-text">
                                                 <%= comments.get(i).getComment()%>
                                             </p>
                                         </div>
-                                    </div>
-                                    <% } %>
-                                </div>
+                                        <% } %>
 
-                            </div>
+                            <c:if test="${hiredConseillersIds.contains(conseiller.getId())==true}">
+                                                <div class="d-flex align-items-end row">
+
+                                                        <div>
+                                                            <div class="card-body">
+
+                                                                <h5 class="card-title text-primary">Add Comment</h5>
+                                                                <form action="conseiller" method="post">
+                                                                    <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
+                                                                    <input type="hidden" name="hiredConseillersIds" value="<%= hiredConseillersIds %>  " />
+                                                                    <div class="form-group">
+                                                                        <textarea class="form-control" name="comment" rows="3" placeholder="Enter your comment"></textarea>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                </form>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                </div>
+                            </c:if>
+
                         </div>
-            </c:if>
+
                     </div>
                 </div>
                 <!-- Content wrapper -->

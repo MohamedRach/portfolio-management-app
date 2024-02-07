@@ -127,8 +127,47 @@
         <servlet-name>createConseillerServlet</servlet-name>
         <url-pattern>/createConseiller</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>createActivityServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.ActivityServlets.CreateActivityServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>createActivityServlet</servlet-name>
+        <url-pattern>/createActivity</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getConseiller</servlet-name>
         <url-pattern>/conseiller</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SupprimerActivityServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.ActivityServlets.SupprimerActivityServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SupprimerActivityServlet</servlet-name>
+        <url-pattern>/supprimerAcctivity</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>activityServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.ActivityServlets.ActivityServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>activityServlet</servlet-name>
+        <url-pattern>/activityList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>createHiringServlet</servlet-name>
+        <servlet-class>com.example.projets3.servlets.HiringServlets.CreateHiringServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>createHiringServlet</servlet-name>
+        <url-pattern>/createHiring</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

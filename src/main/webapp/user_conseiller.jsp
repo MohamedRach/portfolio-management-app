@@ -4,6 +4,7 @@
 
 <%@ page import="com.example.projets3.bean.ConseillerBean" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Set" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -66,12 +67,90 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
+                    <h2 class="card-title text-primary">Mes conseillers :</h2>
                     <div style="display: grid; grid-template-columns: repeat(4, 250px); column-gap: 30px; row-gap: 20px;">
-                        <% ArrayList<ConseillerBean> conseillers = (ArrayList<ConseillerBean>) request.getAttribute("conseillers");%>
-                        <%
 
+                        <%
+                            ArrayList<ConseillerBean> conseillers = (ArrayList<ConseillerBean>) request.getAttribute("conseillers");
+                            Set<Integer> hiredConseillersIds = (Set<Integer>) request.getAttribute("hiredConseillersIds");
 
                             for (ConseillerBean conseiller : conseillers) {
+                                if (hiredConseillersIds.contains(conseiller.getId())) {
+                        %>
+                        <div class="col">
+
+                            <div class="card h-100">
+                                <img style="border-radius: 50%; width: 100px; margin-top: 30px; margin-left: 80px" src="<%= conseiller.getImageLink() %>" alt="Image du conseiller" />
+                                <div class="card-body">
+                                    <h5 class="card-title" style="text-align: center"><%= conseiller.getPrenom() %> <%= conseiller.getNom() %></h5>
+
+                                    <!-- Display star rating based on conseiller.rating -->
+                                    <div style="text-align: center; margin-bottom: 10px;">
+                                        <%
+                                            double rating = conseiller.getRating();
+                                            int numberOfFullStars = (int) rating;
+                                            int remainingStars = 5 - numberOfFullStars;
+
+                                            // Iterate to display full stars
+                                            for (int i = 0; i < numberOfFullStars; i++) {
+                                        %>
+                                        <span class="fa fa-star" style="color: orange;"></span>
+                                        <%
+                                            }
+
+                                            // If there is a partial star, display it
+                                            if (rating % 1 != 0) {
+                                        %>
+                                        <span class="fa fa-star-half" style="color: orange;"></span>
+                                        <%
+                                                remainingStars--; // Adjust remaining stars if a half star is displayed
+                                            }
+
+                                            // Add empty stars for the remaining space
+                                            for (int i = 0; i < remainingStars; i++) {
+                                        %>
+                                        <span class="fa fa-star"></span>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+
+                                    <!-- Other details about the conseiller -->
+                                    <!-- Display conseiller.description -->
+                                    <p class="card-text" style="margin-top: 10px">
+                                        <%= conseiller.getDescription() %>
+                                    </p>
+
+                                    <!-- Buttons -->
+                                    <form action="conseiller" method="post">
+                                        <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
+                                        <button  type="submit" style="width: 100%" class="btn btn-primary">Voir le profil</button>
+                                    </form>
+                                    <form action="conseiller" method="post">
+                                        <!-- Add a hidden input field for idconseiller -->
+                                        <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
+
+                                        <!-- Other form fields, if any -->
+
+                                        <!-- "Hire Me" button -->
+                                        <button type="submit" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire Me</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <%
+                                }
+                            }
+                        %>
+                </div>
+                    <h2 class="card-title text-primary">Tous les conseillers :</h2>
+                    <div style="display: grid; grid-template-columns: repeat(4, 250px); column-gap: 30px; row-gap: 20px;">
+
+                        <%
+                            for (ConseillerBean conseiller : conseillers) {
+                                if (!hiredConseillersIds.contains(conseiller.getId())) {
                         %>
                         <div class="col">
                             <div class="card h-100">
@@ -117,20 +196,33 @@
                                     </p>
 
                                     <!-- Buttons -->
+                                    <form action="conseiller" method="post">
+                                        <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
 
-                                        <button type="button" style="width: 100%" class="btn btn-primary">Voir le profil</button>
-                                        <button type="button" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire me</button>
+                                        <button type="submit" style="width: 100%" class="btn btn-primary">Voir le profil</button>
+                                    </form>
+                                    <form action="conseiller" method="post">
+                                        <!-- Add a hidden input field for idconseiller -->
+                                        <input type="hidden" name="id_conseiller" value="<%= conseiller.getId() %>" />
+
+
+                                        <!-- Other form fields, if any -->
+
+                                        <!-- "Hire Me" button -->
+                                        <button type="submit" style="width: 100%; margin-top: 15px" class="btn btn-outline-primary">Hire Me</button>
+                                    </form>
 
                                 </div>
                             </div>
                         </div>
 
                         <%
+                                }
                             }
                         %>
-                </div>
+                    </div>
                 <!-- Content wrapper -->
-            </div>
+
             <!-- / Layout page -->
         </div>
 
