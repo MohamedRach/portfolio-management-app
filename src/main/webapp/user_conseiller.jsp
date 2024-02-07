@@ -147,6 +147,7 @@
                         <div class="col">
                             <div class="card h-100">
                                 <img style="border-radius: 50%; width: 100px; margin-top: 30px; margin-left: 80px" src="<%= conseiller.getImageLink() %>" alt="Image du conseiller" />
+
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: center"><%= conseiller.getPrenom() %> <%= conseiller.getNom() %></h5>
 

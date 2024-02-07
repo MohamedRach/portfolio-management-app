@@ -36,7 +36,7 @@ public class portfolioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         int portfolio_id = Integer.parseInt(request.getParameter("id"));
-        portfolioBean portfolio = this.portfolioDao.getPortfolio(portfolio_id,(int) session.getAttribute("id"));
+        portfolioBean portfolio = this.portfolioDao.getPortfolio(portfolio_id,(int) session.getAttribute("id_user"));
         ArrayList<stockBean> stocks = this.stockDao.getStocks(portfolio_id);
         ArrayList<Float> priceData = new ArrayList<>();
         ArrayList<Float> quoteData = new ArrayList<>();

@@ -36,7 +36,7 @@ public class dashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        int user_id = (int) session.getAttribute("id");
+        int user_id = (int) session.getAttribute("id_user");
         ArrayList<portfolioBean> portfolios = this.portfolioDao.getPortfolios(user_id);
         float total_stocks = 0;
         float total_value  = 0;
