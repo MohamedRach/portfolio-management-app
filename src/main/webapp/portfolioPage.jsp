@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Objects" %>
 <%@page buffer="8192kb" autoFlush="true" %>
 <!DOCTYPE html>
 <html
@@ -51,7 +52,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
@@ -77,61 +78,15 @@
                                 </div>
                                 <div class="col-sm-5 text-center text-sm-left">
                                     <div class="card-body pb-0 px-0 px-md-4" style="margin-top: -120px;">
-                                        <button data-bs-toggle="modal" data-bs-target="#modalCenter" class="btn btn-lg btn-outline-primary">Update portfolio</button>
-                                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
-                                                        <button
-                                                                type="button"
-                                                                class="btn-close"
-                                                                data-bs-dismiss="modal"
-                                                                aria-label="Close"
-                                                        ></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col mb-3">
-                                                                <label for="nameWithTitle" class="form-label">Name</label>
-                                                                <input
-                                                                        type="text"
-                                                                        id="nameWithTitle"
-                                                                        class="form-control"
-                                                                        placeholder="Enter Name"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div class="row g-2">
-                                                            <div class="col mb-0">
-                                                                <label for="emailWithTitle" class="form-label">Email</label>
-                                                                <input
-                                                                        type="text"
-                                                                        id="emailWithTitle"
-                                                                        class="form-control"
-                                                                        placeholder="xxxx@xxx.xx"
-                                                                />
-                                                            </div>
-                                                            <div class="col mb-0">
-                                                                <label for="dobWithTitle" class="form-label">DOB</label>
-                                                                <input
-                                                                        type="text"
-                                                                        id="dobWithTitle"
-                                                                        class="form-control"
-                                                                        placeholder="DD / MM / YY"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                                            Close
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <% if(Objects.equals(session.getAttribute("role"), "user")){%>
+                                        <form action="portfolio" method="post">
+                                            <input type="hidden" name="delete" value="portfolio">
+                                            <input type="hidden" name="porttfolioId" value="<%= request.getParameter("id")%>">
+                                            <button type="submit" class="btn btn-lg btn-outline-primary">Delete portfolio</button>
+                                        </form>
+                                        <%} else {%>
+                                            <a href=<%= "/createActivity?id=" + request.getAttribute("user_id")%>><button type="button" class="btn btn-lg btn-outline-primary">Add consultancy</button></a>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>
@@ -164,31 +119,41 @@
                                             <th>Total Cash</th>
                                             <th>Total Debt</th>
                                             <th>Profit Margins</th>
+                                            <% if(Objects.equals(session.getAttribute("role"), "user")){%>
                                             <th>Actions</th>
+                                            <%}%>
                                         </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
 
                                         <% for (ArrayList<String> data: financialData){ %>
                                         <tr>
-                                            <td><%= data.get(data.size() - 1)%></td>
+                                            <td><%= data.get(4)%></td>
                                             <td><%= data.get(0)%></td>
                                             <td><%= data.get(1)%></td>
                                             <td><%= data.get(2)%></td>
                                             <td><%= data.get(3)%></td>
-                                            <%};%>
+                                            <% if(Objects.equals(session.getAttribute("role"), "user")){%>
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                                         <i class="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="javascript:void(0);"
-                                                        ><i class="bx bx-trash me-1"></i> Delete</a
-                                                        >
+                                                        <form action="portfolio" method="post">
+                                                            <input type="hidden" name="delete" value="stock">
+                                                            <input type="hidden" name="stockId" value="<%= data.get(5)%>">
+                                                            <button class="btn btn-sm btn-outline-primary" type="submit">
+                                                                <i class="bx bx-trash me-1"></i> Delete
+                                                            </button>
+                                                        </form>
+
                                                     </div>
                                                 </div>
                                             </td>
+
+                                            <%}};%>
+
 
                                         </tr>
 

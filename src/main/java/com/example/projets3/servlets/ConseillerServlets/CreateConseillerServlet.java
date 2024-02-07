@@ -12,6 +12,7 @@ import com.example.projets3.dao.ConseillerDao.ConseillerDaoImpl;
 import com.example.projets3.dao.DAOException;
 import com.example.projets3.dao.daoFactory;
 
+import com.example.projets3.servlets.authentification.authentification;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -25,11 +26,13 @@ import jakarta.servlet.http.Part;
 @MultipartConfig
 public class CreateConseillerServlet extends HttpServlet {
     private ConseillerDao conseillerDao;
+    private authentification auth;
     private static final String WEB_CONTENT_DIR   = "C:/Users/User0/Desktop/PROJET S3/portfolio-management-app/src/main/webapp";
     private static final String BLOGS_IMAGES_DIR = "/photos/";
     public void init() {
         daoFactory daoFactory = com.example.projets3.dao.daoFactory.getInstance();
         this.conseillerDao = new ConseillerDaoImpl(daoFactory);
+        this.auth = new authentification();
     }
     private static String getMeidaExt(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
@@ -74,11 +77,13 @@ public class CreateConseillerServlet extends HttpServlet {
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
-
+        String description = request.getParameter("description");
+        String pass = this.auth.hash("DEFAULTPASSWORD".toCharArray());
+        /*
         Part image = request.getPart("image");
         String imageLink = savePart(image);
 
-
+    */
 
 
 
@@ -87,8 +92,9 @@ public class CreateConseillerServlet extends HttpServlet {
         newConseiller.setNom(nom);
         newConseiller.setPrenom(prenom);
         newConseiller.setEmail(email);
-        newConseiller.setPassword("DEFAULTPASSWORD");
-        newConseiller.setImageLink(imageLink);
+        newConseiller.setPassword(pass);
+        newConseiller.setDescription(description);
+        //newConseiller.setImageLink(imageLink);
 
 
         try {

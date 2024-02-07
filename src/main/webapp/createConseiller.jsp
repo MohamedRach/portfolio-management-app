@@ -64,7 +64,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
@@ -96,6 +96,10 @@
                                         <div class="form-group">
                                             <label class="label-control">Email :</label>
                                             <input class="form-control" name="email" placeholder="Entrer l'email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label-control">Description :</label>
+                                            <input class="form-control" name="description" placeholder="Entrer Description">
                                         </div>
                                         <div class="form-group">
                                             <div class="mb-3">

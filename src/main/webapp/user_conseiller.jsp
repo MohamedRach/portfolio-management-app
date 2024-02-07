@@ -55,7 +55,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
@@ -68,7 +68,7 @@
 
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h2 class="card-title text-primary">Mes conseillers :</h2>
-                    <div style="display: grid; grid-template-columns: repeat(4, 250px); column-gap: 30px; row-gap: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 250px); column-gap: 80px; row-gap: 20px;">
 
                         <%
                             ArrayList<ConseillerBean> conseillers = (ArrayList<ConseillerBean>) request.getAttribute("conseillers");
@@ -118,7 +118,7 @@
                                     <!-- Other details about the conseiller -->
                                     <!-- Display conseiller.description -->
                                     <p class="card-text" style="margin-top: 10px">
-                                        <%= conseiller.getDescription() %>
+                                        <%= conseiller.getDescription().substring(0, 100) %>...
                                     </p>
 
                                     <!-- Buttons -->
@@ -138,7 +138,7 @@
                         %>
                 </div>
                     <h2 class="card-title text-primary">Tous les conseillers :</h2>
-                    <div style="display: grid; grid-template-columns: repeat(4, 250px); column-gap: 30px; row-gap: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 250px); column-gap: 80px; row-gap: 20px;">
 
                         <%
                             for (ConseillerBean conseiller : conseillers) {
@@ -184,7 +184,7 @@
                                     <!-- Other details about the conseiller -->
                                     <!-- Display conseiller.description -->
                                     <p class="card-text" style="margin-top: 10px">
-                                        <%= conseiller.getDescription() %>
+                                        <%= conseiller.getDescription().substring(0, 100) %>...
                                     </p>
 
                                     <!-- Buttons -->
@@ -214,21 +214,25 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <script>
-        const menus = document.querySelectorAll(".menu-item");
-        menus.forEach((menu) => (
-            menu.addEventListener("click", (e) => {
-                e.preventDefault()
-                if (menu.classList.contains('open')) {
-                    // The 'open' class is present in the element's class list
-                    menu.classList.remove("open")
-                } else {
-                    // The 'open' class is not present in the element's class list
-                    menu.classList.add("open")
-                }
-            })
-        ))
-    </script>
+            <script>
+
+                const menus = document.querySelectorAll(".menu-toggle");
+                console.log(menus)
+                menus.forEach((menu) => (
+                    menu.addEventListener("click", (e) => {
+                        e.preventDefault()
+                        if (menu.parentElement.classList.contains('open')) {
+                            // The 'open' class is present in the element's class list
+                            menu.parentElement.classList.remove("open")
+                        } else {
+                            // The 'open' class is not present in the element's class list
+                            menu.parentElement.classList.add("open")
+                        }
+                    })
+                ))
+            </script>
+            <script src="../assets/js/searchInput.js"></script>
+            <script src="../assets/js/createSubArray.js"></script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->

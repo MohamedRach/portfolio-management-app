@@ -49,7 +49,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">

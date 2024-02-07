@@ -4,7 +4,7 @@ import com.example.projets3.bean.ConseillerBean;
 import com.example.projets3.bean.UserBean;
 import com.example.projets3.dao.DAOException;
 public interface ConseillerDao{
-        ConseillerBean find(int id) throws DAOException;
+        ConseillerBean find(String email) throws DAOException;
          ArrayList<ConseillerBean> getAllConseillers() throws DAOException;
         void create(ConseillerBean conseiller) throws DAOException;
         void update(ConseillerBean conseiller) throws DAOException;

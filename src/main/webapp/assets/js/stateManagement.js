@@ -23,4 +23,4 @@ class GlobalState {
 }
 
 const globalState = new GlobalState();
-
+export {globalState}

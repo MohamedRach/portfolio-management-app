@@ -47,7 +47,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
-        <%@ include file= "menu.html"%>
+        <%@ include file= "menu.jsp"%>
         <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
@@ -109,31 +109,8 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <script>
-        const menus = document.querySelectorAll(".menu-toggle");
-        console.log(menus)
-        menus.forEach((menu) => (
-            menu.addEventListener("click", (e) => {
-                e.preventDefault()
-                if (menu.parentElement.classList.contains('open')) {
-                    // The 'open' class is present in the element's class list
-                    menu.parentElement.classList.remove("open")
-                } else {
-                    // The 'open' class is not present in the element's class list
-                    menu.parentElement.classList.add("open")
-                }
-            })
-        ))
-    </script>
-    <script src="../assets/js/stateManagement.js"></script>
-    <script>
-        function onSubmit(){
-            const portfolioName = document.getElementById("nameWithTitle").value;
-            const porfolioId = globalState.getState().pop()[0];
-            globalState.updateState([porfolioId, portfolioName])
-            return true;
-        }
-    </script>
+
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
