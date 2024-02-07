@@ -64,7 +64,7 @@ public class googleAuthServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("email", email);
                 // Redirect to the /users page after successful creation
-                response.sendRedirect(request.getContextPath() + "/users");
+                response.sendRedirect(request.getContextPath() + "/dashboard");
             } else {
                     HttpSession session = request.getSession();
 

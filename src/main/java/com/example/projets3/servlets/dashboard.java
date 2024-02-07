@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,41 +35,47 @@ public class dashboard extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<portfolioBean> portfolios = this.portfolioDao.getPortfolios(1);
+        HttpSession session = request.getSession();
+        int user_id = (int) session.getAttribute("id");
+        ArrayList<portfolioBean> portfolios = this.portfolioDao.getPortfolios(user_id);
         float total_stocks = 0;
         float total_value  = 0;
         ArrayList<stockBean> stockNames = new ArrayList<>();
         ArrayList<ArrayList<Object>> quoteData = new ArrayList<>();
         ArrayList<ArrayList<Object>> graphData = new ArrayList<ArrayList<Object>>();
         ArrayList<ArrayList<Object>> portfolioData = new ArrayList<ArrayList<Object>>();
-        for(portfolioBean portfolio: portfolios) {
-            ArrayList<stockBean> stocks = this.stockDao.getStocks(portfolio.getId());
-            ArrayList<Object> ports = new ArrayList<>();
-            for (stockBean stock: stocks) {
-                ArrayList<Float> quote = this.apiCommunication.getQuoteData(stock.getName());
-                ArrayList<Object> gainData = new ArrayList<>();
-                gainData.add(stock.getName());
-                gainData.add(quote.get(1));
-                quoteData.add(gainData);
-                total_value += quote.get(0)*stock.getQuantity();
-                stockNames.add(stock);
-                total_stocks += stock.getQuantity();
+        ArrayList<String> stockName = new ArrayList<>();
+        ArrayList<Float> percentage = new ArrayList<>();
+        if(portfolios.size() != 0) {
+            for (portfolioBean portfolio : portfolios) {
+                ArrayList<stockBean> stocks = this.stockDao.getStocks(portfolio.getId());
+
+                ArrayList<Object> ports = new ArrayList<>();
+                for (stockBean stock : stocks) {
+                    //String symbole = this.apiCommunication.getStockSymbole(stock.getName());
+                    ArrayList<Float> quote = this.apiCommunication.getQuoteData(stock.getName());
+                    ArrayList<Object> gainData = new ArrayList<>();
+                    gainData.add(stock.getName());
+                    gainData.add(quote.get(1));
+                    quoteData.add(gainData);
+                    total_value += quote.get(0) * stock.getQuantity();
+                    stockNames.add(stock);
+                    total_stocks += stock.getQuantity();
+                }
+                ports.add(portfolio.getId());
+                ports.add(portfolio.getName());
+                portfolioData.add(ports);
+
             }
-            ports.add(portfolio.getId());
-            ports.add(portfolio.getName());
-            portfolioData.add(ports);
+
+
+            for (stockBean stocks : stockNames) {
+                stockName.add(stocks.getName());
+                percentage.add(((float) stocks.getQuantity() / total_stocks) * 100);
+            }
 
         }
-        ArrayList<String> stockName =  new ArrayList<>();
-        ArrayList<Float> percentage = new ArrayList<>();
-        for(stockBean stocks: stockNames) {
-            stockName.add(stocks.getName());
-            percentage.add(((float)stocks.getQuantity()/total_stocks)*100);
-        }
-        System.out.println(portfolioData);
         request.setAttribute("portfolios", portfolioData);
-        request.setAttribute("graphData1", stockName);
-        request.setAttribute("graphData2", percentage);
         request.setAttribute("total_value", total_value);
         request.setAttribute("tableData", quoteData);
         request.setAttribute("total_portfolios", portfolios.size());

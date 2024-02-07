@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@page buffer="8192kb" autoFlush="true" %>
 <!DOCTYPE html>
 <html
         lang="en"
@@ -14,7 +16,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Add portfolio</title>
+    <title>Stock Prices</title>
 
     <meta name="description" content="" />
 
@@ -42,6 +44,7 @@
     <script src="../assets/js/config.js"></script>
 </head>
 
+
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -56,54 +59,48 @@
             <!-- / Navbar -->
             <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
-
                 <div class="container-xxl flex-grow-1 container-p-y">
-
-                    <!-- Total Revenue -->
-                    <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4" style="width: 50%; margin-left: 210px">
+                <!-- Content -->
+                    <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4" style="width: 100%">
                         <div class="card">
                             <div class="row row-bordered g-0">
                                 <div class="col-md-8">
-                                    <h5 class="card-header m-0 me-2 pb-3">Add Portfolio</h5>
-                                    <div>
-                                        <form action="addPortfolio" method="post" onsubmit="onSubmit()" style="margin-left: 20px; display: flex; flex-direction: column; justify-content: center">
-                                            <label for="nameWithTitle" class="form-label">Name</label>
-                                            <input
-                                                    type="text"
-                                                    id="nameWithTitle"
-                                                    class="form-control"
-                                                    placeholder="Enter portfolio name"
-                                                    name="name"
-                                                    style="width: 60%; margin-bottom: 20px"
-                                            />
-                                            <label for="description" class="form-label">Description</label>
-                                            <input
-                                                    type="text"
-                                                    id="description"
-                                                    class="form-control"
-                                                    placeholder="Enter Description"
-                                                    name="description"
-                                                    style="width: 60%; margin-bottom: 20px"
-                                            />
-                                            <button type="submit" class="btn btn-primary" style="margin-bottom: 30px; width: 40%">Add portfolio</button>
-                                        </form>
+                                    <h5 class="card-header m-0 me-2 pb-3"><%=request.getAttribute("reportName")%></h5>
+                                    <div id="second_chart" class="px-2"></div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Stock Name</th>
+                                            <th><%= request.getAttribute("first_period")%></th>
+                                            <th><%= request.getAttribute("second_period")%></th>
+                                            <th><%= request.getAttribute("third_period")%></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
 
-                                    </div>
+                                        <% for (ArrayList<Object> dt: (ArrayList<ArrayList<Object>>) request.getAttribute("data") ){ %>
+                                        <tr>
+                                            <td><%= dt.get(0)%></td>
+                                            <td><%= dt.get(1)%></td>
+                                            <td><%= dt.get(2)%></td>
+                                            <td><%= dt.get(3)%></td>
+                                            <%};%>
 
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <!--/ Total Revenue -->
-
-
-
+                </div>
                 <!-- Content wrapper -->
             </div>
             <!-- / Layout page -->
         </div>
+
 
 
     </div>
@@ -125,15 +122,7 @@
             })
         ))
     </script>
-    <script src="../assets/js/stateManagement.js"></script>
-    <script>
-        function onSubmit(){
-            const portfolioName = document.getElementById("nameWithTitle").value;
-            const porfolioId = globalState.getState().pop()[0];
-            globalState.updateState([porfolioId, portfolioName])
-            return true;
-        }
-    </script>
+
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="../assets/vendor/libs/jquery/jquery.js"></script>
@@ -143,9 +132,48 @@
 
     <script src="../assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
-
-    <!-- Vendors JS -->
     <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script>
+        const data = [<%=request.getAttribute("first_period_return")%>, <%=request.getAttribute("second_period_return")%>, <%=request.getAttribute("third_period_return")%>]
+        const categories = ["<%=request.getAttribute("first_period")%>", "<%=request.getAttribute("second_period")%>", "<%=request.getAttribute("third_period")%>"]
+        var options = {
+            series: [{
+                name: 'Returns',
+                data: data
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: categories,
+            },
+            fill: {
+                opacity: 1
+            },
+
+        };
+        const second_chart = document.querySelector('#second_chart')
+        var chart = new ApexCharts(second_chart, options);
+        chart.render();
+    </script>
+    <!-- Vendors JS -->
+
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
@@ -153,9 +181,9 @@
     <script src="../assets/js/ui-modals.js"></script>
     <!-- Page JS -->
     <!--<script src="../assets/js/dashboards-analytics.js"></script>-->
-    <script src="../assets/js/chartt.js"></script>
-    <stock-chart data="<%= request.getAttribute("data")%>"></stock-chart>>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </body>
 </html>

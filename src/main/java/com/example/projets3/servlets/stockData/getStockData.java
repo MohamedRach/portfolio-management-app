@@ -11,7 +11,12 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
+import com.example.projets3.bean.portfolioBean;
+import com.example.projets3.dao.portfolio.portfolioDao;
 
+
+import com.example.projets3.dao.daoFactory;
+import com.example.projets3.dao.portfolio.portfolioDaoImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -23,14 +28,19 @@ import com.example.projets3.servlets.stockData.apiCommunication;
 @WebServlet(name = "getStockData", value = "/getData")
 public class getStockData extends HttpServlet {
     private apiCommunication apiCommunication;
+    private portfolioDao portfolioDao;
     public void init(){
+        daoFactory daoFactory = com.example.projets3.dao.daoFactory.getInstance();
         this.apiCommunication = new apiCommunication();
+        this.portfolioDao = new portfolioDaoImpl(daoFactory);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
         String date = request.getParameter("date");
         String stock = request.getParameter("name");
         String symbole = this.apiCommunication.getStockSymbole(stock);
+        ArrayList<portfolioBean> portfolios = this.portfolioDao.getPortfolios((int) session.getAttribute("id"));
         ArrayList<ArrayList<String>> data = null;
         ArrayList<ArrayList<String>> results = null;
         ArrayList<Float> quoteData = this.apiCommunication.getQuoteData(symbole);
@@ -47,9 +57,8 @@ public class getStockData extends HttpServlet {
             results = this.apiCommunication.getStockData(symbole, "TIME_SERIES_INTRADAY");
 
         }
-        System.out.println(results);
-        System.out.println(financialData);
-        System.out.println(quoteData);
+        request.setAttribute("portfolios", portfolios);
+        request.setAttribute("symbole", symbole);
         request.setAttribute("stockName", stock);
         request.setAttribute("data", results);
         request.setAttribute("quoteData", quoteData);

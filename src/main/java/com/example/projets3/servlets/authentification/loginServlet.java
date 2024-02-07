@@ -56,11 +56,13 @@ public class loginServlet extends HttpServlet {
                     HttpSession session = request.getSession();
 
                     session.setAttribute("email", email);
+
                     session.setAttribute("id_user", User.getId()); // set the user in the session
                     //session.setAttribute("id_conseiller",Conseiller.getId()); // set the user in the session
 
+
                     // Redirect to the /users page after successful creation
-                    response.sendRedirect(request.getContextPath() + "/users");
+                    response.sendRedirect(request.getContextPath() + "/dashboard");
                 } else {
                     System.out.println("unauthorized");
                 }
