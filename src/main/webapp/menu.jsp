@@ -16,7 +16,7 @@
         <!-- Dashboard -->
         <%if (Objects.equals(session1.getAttribute("role"), "admin")){%>
         <li class="menu-item">
-            <a href="/dashboard" class="menu-link">
+            <a href="/users" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Users</div>
             </a>
@@ -24,7 +24,7 @@
 
         <!-- Layouts -->
         <li class="menu-item sub">
-            <a href="/portfolio" class="menu-link">
+            <a href="/conseillerList" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Consultants</div>
             </a>

@@ -2,12 +2,15 @@ package com.example.projets3.servlets.authentification;
 
 import com.example.projets3.bean.UserBean;
 
+import com.example.projets3.bean.adminBean;
 import com.example.projets3.dao.DAOException;
 import com.example.projets3.dao.UserDao.UserDao;
+import com.example.projets3.dao.adminDao.adminDao;
 import com.example.projets3.dao.ConseillerDao.ConseillerDao;
 import com.example.projets3.dao.UserDao.UserDaoImpl;
 import com.example.projets3.dao.ConseillerDao.ConseillerDaoImpl;
 import com.example.projets3.bean.ConseillerBean;
+import com.example.projets3.dao.adminDao.adminDaoImpl;
 import com.example.projets3.dao.daoFactory;
 import com.example.projets3.servlets.authentification.googleAuth;
 import jakarta.servlet.RequestDispatcher;
@@ -23,6 +26,7 @@ import java.util.Objects;
 public class loginServlet extends HttpServlet {
     private UserDao userDao;
     private ConseillerDao conseillerDao;
+    private adminDao adminDao;
     private authentification auth;
     private googleAuth google_auth;
 
@@ -32,12 +36,13 @@ public class loginServlet extends HttpServlet {
         this.auth = new authentification();
         this.userDao = new UserDaoImpl(dao_Factory);
         this.conseillerDao = new ConseillerDaoImpl(dao_Factory);
+        this.adminDao = new adminDaoImpl(dao_Factory);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Forward the request to the JSP page for creating a new user
         if(Objects.equals(request.getParameter("type"), "admin")){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Adminlogin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminLogin.jsp");
             dispatcher.forward(request, response);
         } else if(Objects.equals(request.getParameter("type"), "conseiller")){
             RequestDispatcher dispatcher = request.getRequestDispatcher("Consultantslogin.jsp");
@@ -71,12 +76,29 @@ public class loginServlet extends HttpServlet {
                         session.setAttribute("role","conseiller"); // set the user in the session
 
 
-                        // Redirect to the /users page after successful creation
+                        response.sendRedirect(request.getContextPath() + "/dashboard");
 
                     } else {
                         System.out.println("unauthorized");
                     }
                 } else if(request.getParameter("admin") != null){
+                    adminBean admin = this.adminDao.findByEmail(email);
+                    boolean auth_success = this.auth.authenticate(password.toCharArray(), admin.getPassword());
+                    if(auth_success) {
+                        HttpSession session = request.getSession();
+
+                        session.setAttribute("email", email);
+
+                        session.setAttribute("id_admin", admin.getId()); // set the user in the session
+                        session.setAttribute("role","admin"); // set the user in the session
+
+
+                        response.sendRedirect(request.getContextPath() + "/users");
+
+                    } else {
+                        System.out.println("unauthorized");
+                    }
+
 
                 } else {
                 // find the user in the database
@@ -92,7 +114,7 @@ public class loginServlet extends HttpServlet {
                         session.setAttribute("role", "user");
 
 
-                        // Redirect to the /users page after successful creation
+                        response.sendRedirect(request.getContextPath() + "/dashboard");
 
                     }else {
                         System.out.println("unauthorized");
@@ -107,6 +129,6 @@ public class loginServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/dashboard");
+
     }
 }
