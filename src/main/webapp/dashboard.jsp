@@ -68,19 +68,19 @@
                         <div class="card">
                             <div>
                                 <h5 class="card-header m-0 me-2 pb-3">Total Stocks</h5>
-                                <h4><%= request.getAttribute("total_stocks")%></h4>
+                                <h4 style="margin-left: 18px"><%= request.getAttribute("total_stocks")%></h4>
                             </div>
                         </div>
                         <div class="card">
                             <div>
                                 <h5 class="card-header m-0 me-2 pb-3">Total Portfolios</h5>
-                                <h4><%= request.getAttribute("total_portfolios")%></h4>
+                                <h4 style="margin-left: 18px"><%= request.getAttribute("total_portfolios")%></h4>
                             </div>
                         </div>
                         <div class="card">
                             <div>
                                 <h5 class="card-header m-0 me-2 pb-3">Total Value</h5>
-                                <h4><%= request.getAttribute("total_value")%> $</h4>
+                                <h4 style="margin-left: 18px"><%= request.getAttribute("total_value")%> $</h4>
                             </div>
                         </div>
                     </div>

@@ -118,7 +118,7 @@
                                     <!-- Other details about the conseiller -->
                                     <!-- Display conseiller.description -->
                                     <p class="card-text" style="margin-top: 10px">
-                                        <%= conseiller.getDescription().substring(0, 100) %>...
+                                        <%= conseiller.getDescription() %>...
                                     </p>
 
                                     <!-- Buttons -->
@@ -184,7 +184,7 @@
                                     <!-- Other details about the conseiller -->
                                     <!-- Display conseiller.description -->
                                     <p class="card-text" style="margin-top: 10px">
-                                        <%= conseiller.getDescription().substring(0, 100) %>...
+                                        <%= conseiller.getDescription() %>...
                                     </p>
 
                                     <!-- Buttons -->

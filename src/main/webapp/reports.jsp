@@ -68,7 +68,9 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <button style="margin-bottom: 20px" onclick="location.href='/generateReport'" class="btn-outline-primary btn-lg">Generate new report</button>
+                    <% if(Objects.equals(session1.getAttribute("role"), "conseiller")){%>
+                        <button style="margin-bottom: 20px" onclick="location.href='/generateReport'" class="btn-outline-primary btn-lg">Generate new report</button>
+                    <%}%>
                     <h2 class="card-title text-primary">All of your reports :</h2>
                     <div style="display: grid; grid-template-columns: repeat(4, 250px); column-gap: 30px; row-gap: 20px;">
 
