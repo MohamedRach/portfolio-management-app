@@ -1,5 +1,6 @@
 package com.example.projets3.dao.ConseillerDao;
 import com.example.projets3.bean.ConseillerBean;
+import com.example.projets3.bean.UserBean;
 import com.example.projets3.dao.DAOException;
 import com.example.projets3.dao.daoFactory;
 import java.sql.Connection;
@@ -160,6 +161,33 @@ public class ConseillerDaoImpl implements ConseillerDao {
         } catch (SQLException e) {
             throw new DAOException(e);
         }
+    }
+    @Override
+    public ConseillerBean findByEmail(String email) throws DAOException {
+        ConseillerBean conseiller = null;
+        final String SQL_FIND_CONSEILLER_BY_ID = "SELECT * FROM conseiller WHERE email = ?";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_CONSEILLER_BY_ID)) {
+
+            preparedStatement.setNString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                conseiller = new ConseillerBean();
+                conseiller.setId(resultSet.getInt("id"));
+                conseiller.setNom(resultSet.getString("nom"));
+                conseiller.setPrenom(resultSet.getString("prenom"));
+                conseiller.setEmail(resultSet.getString("email"));
+                conseiller.setPassword(resultSet.getString("password"));
+                // Ajoutez les autres propriétés de l'utilisateur si nécessaire
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Erreur lors de la recherche de l'utilisateur par ID.", e);
+        }
+
+        return conseiller;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.projets3.dao.ConseillerDao;
 import java.util.ArrayList;
 import com.example.projets3.bean.ConseillerBean;
+import com.example.projets3.bean.UserBean;
 import com.example.projets3.dao.DAOException;
 public interface ConseillerDao{
         ConseillerBean find(int id) throws DAOException;
@@ -10,6 +11,7 @@ public interface ConseillerDao{
         void delete(int id) throws DAOException;
 
     ConseillerBean findConseiller(int id) throws DAOException;
+    ConseillerBean findByEmail(String email) throws DAOException;
 
     void createConseiller(ConseillerBean conseiller) throws DAOException;
 
