@@ -35,7 +35,7 @@
 <!-- header section start -->
 <div class="header_section">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="logo"><a href="index.jsp"><img src="./assets/img/images_index/lojo.png"></a></div>
+        <div class="logo"><a href="index.jsp"><img style="width: 220px; height: 140px" src="./assets/img/logo.png"></a></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,7 @@
                     <a class="nav-link" href="health.jsp">News</a>
                 </li>
                 <li class="nav-item" style="margin-right: 80px;">
-                    <a class="nav-link" href="news.jsp">About us</a>
+                    <a class="nav-link" href="news.jsp">About</a>
                 </li>
                 <li class="nav-item" style="margin-right: 80px;">
                     <a class="nav-link" href="contact.jsp">Contact</a>
